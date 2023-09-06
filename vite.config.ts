@@ -12,5 +12,10 @@ export default defineConfig({
 			autoInstall: true,
 			compiler: 'svelte'
 		})
-	]
+	],
+	server: {
+		port: 3000,
+		/* Use this to enable local network access from other machines */
+		/* host: '0.0.0.0' */
+	}
 });
