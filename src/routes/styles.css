@@ -1,0 +1,7 @@
+@import '@fontsource/fira-sans';
+@import '@fontsource/dongle';
+
+:root {
+	--theme-font-family-base: 'Fira Sans', sans-serif;
+	--theme-font-family-heading: 'Fira Sans', sans-serif;
+}
