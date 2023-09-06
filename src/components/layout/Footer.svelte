@@ -1,0 +1,43 @@
+<script lang="ts">
+	import X from 'virtual:icons/simple-icons/x';
+	import LinkedIn from 'virtual:icons/devicon/linkedin';
+	import Github from 'virtual:icons/jam/github';
+	import { Link } from '../util';
+	export let discreet: boolean = false;
+</script>
+
+<footer
+	class="relative flex justify-center items-center left-0 right-0 pt-2 pb-2 pl-1 pr-1 bg-surface-100-800-token"
+>
+	{#if discreet}
+		<span>Keibo ©2023</span>
+	{:else}
+		<div class="flex items-center gap-12 min-w-[200px] max-w-[1280px]">
+			<div class="flex items-center flex-1 gap-4">
+				<a href="/" class="text-2xl font-bold"> Keibo </a>
+				<ul class="flex items-center gap-4">
+					<li>
+						<Link href="https://www.linkedin.com/in/andy-lee-4b913719a/">
+							<LinkedIn class="w-6 h-6" />
+						</Link>
+					</li>
+					<li>
+						<Link href="https://github.com/AndyLeezard">
+							<Github class="w-6 h-6" />
+							<!-- <FaGithubSquare size={22} /> -->
+						</Link>
+					</li>
+					<li>
+						<Link href="https://twitter.com/andyleedev">
+							<X class="w-6 h-6" />
+							<!-- <AiFillTwitterCircle size={22} /> -->
+						</Link>
+					</li>
+				</ul>
+			</div>
+			<div class="flex items-center flex-1 gap-4 justify-end">
+				<span class="min-w-[102px]">Keibo ©2023</span>
+			</div>
+		</div>
+	{/if}
+</footer>
