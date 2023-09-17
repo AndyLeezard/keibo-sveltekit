@@ -2,7 +2,7 @@
 	import X from 'virtual:icons/simple-icons/x';
 	import LinkedIn from 'virtual:icons/devicon/linkedin';
 	import Github from 'virtual:icons/jam/github';
-	import { Link } from '../util';
+	import { Link } from '$components/util';
 	export let discreet: boolean = false;
 </script>
 
@@ -14,21 +14,21 @@
 	{:else}
 		<div class="flex items-center gap-12 min-w-[200px] max-w-[1280px]">
 			<div class="flex items-center flex-1 gap-4">
-				<a href="/" class="text-2xl font-bold"> Keibo </a>
+				<Link className="text-2xl font-bold"> Keibo </Link>
 				<ul class="flex items-center gap-4">
 					<li>
-						<Link href="https://www.linkedin.com/in/andy-lee-4b913719a/">
+						<Link asNewTab href="https://www.linkedin.com/in/andy-lee-4b913719a/">
 							<LinkedIn class="w-6 h-6" />
 						</Link>
 					</li>
 					<li>
-						<Link href="https://github.com/AndyLeezard">
+						<Link asNewTab href="https://github.com/AndyLeezard">
 							<Github class="w-6 h-6" />
 							<!-- <FaGithubSquare size={22} /> -->
 						</Link>
 					</li>
 					<li>
-						<Link href="https://twitter.com/andyleedev">
+						<Link asNewTab href="https://twitter.com/andyleedev">
 							<X class="w-6 h-6" />
 							<!-- <AiFillTwitterCircle size={22} /> -->
 						</Link>

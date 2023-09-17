@@ -1,4 +1,5 @@
 <script>
+	import { Link } from '$components/util';
 	import { user } from '$stores/auth';
 </script>
 
@@ -10,5 +11,5 @@
 {:else if $user === undefined}
 	<div class="btn variant-filled-surface animate-pulse min-h-[42px] min-w-[84px]" />
 {:else}
-	<a role="button" class="btn variant-filled font-semibold" href={'/auth/signin'}>Sign in</a>
+	<Link href={"auth/signin"} className="btn variant-filled font-semibold" >Sign in</Link>
 {/if}

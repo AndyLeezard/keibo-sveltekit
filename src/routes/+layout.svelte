@@ -19,21 +19,17 @@
 	import MDLang from '$components/modals/lang.svelte';
 	import '@fontsource/fira-sans';
 	import '@fontsource/dongle';
+	import { Link } from '$components/util';
 
 	initializeStores();
 
-	// import ModalComponentOne from '...';
-	// import ModalComponentTwo from '...';
-
 	const modalComponentRegistry: Record<string, ModalComponent> = {
-		// Custom Modal 1
 		mdlang: {
-			// Pass a reference to your custom component
-			ref: MDLang,
+			ref: MDLang
 			// Add the component properties as key/value pairs
-			props: { background: 'bg-red-500' },
+			// props: { background: 'bg-red-500' },
 			// Provide a template literal for the default component slot
-			slot: '<p>Skeleton</p>'
+			// slot: '<p>Skeleton</p>'
 		}
 	};
 
@@ -56,17 +52,6 @@
 			}
 		}
 		checkCookieChange();
-		/* setTimeout(() => {
-			document.cookie = `test=${Math.random()}; path=/`;
-		}, 2000);
-
-		window.addEventListener('storage', checkCookieChange);
-		cookieStore.addEventListener('cookiechange', checkCookieChange);
-
-		return () => {
-			window.removeEventListener('storage', checkCookieChange);
-			window.removeEventListener('cookiechange', checkCookieChange);
-		}; */
 	});
 </script>
 
@@ -78,7 +63,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<a href="/"><strong class="text-xl">Keibo</strong></a>
+				<Link><strong class="text-xl">Keibo</strong></Link>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<Avatar />

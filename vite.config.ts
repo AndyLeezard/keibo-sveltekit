@@ -13,7 +13,7 @@ export default defineConfig({
 			// experimental
 			autoInstall: true,
 			compiler: 'svelte'
-		})
+		}),
 	],
 	server: {
 		port: 3000

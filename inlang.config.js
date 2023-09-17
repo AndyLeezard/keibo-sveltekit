@@ -16,10 +16,7 @@ export async function defineConfig(env) {
 				pathPattern: './languages/{language}.json'
 			}),
 			sdkPlugin({
-				languageNegotiation: {
-					// strategies: [{ type: 'url' }, { type: 'accept-language-header' }]
-					strategies: [{ type: "localStorage" }]
-				}
+				languageNegotiation: { strategies: [{ type: 'url' }] }
 			})
 		]
 	};
