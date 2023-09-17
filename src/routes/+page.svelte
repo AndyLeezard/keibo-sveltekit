@@ -1,8 +1,16 @@
+<script>
+	import { i } from '@inlang/sdk-js';
+	import { user } from '$stores/auth';
+</script>
+
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
+<svelte:head>
+	<title>Keibo - your account</title>
+</svelte:head>
 
 <div class="container h-full mx-auto flex justify-center items-center">
 	<div class="space-y-10 text-center flex flex-col items-center">
-		<h2 class="h2">Welcome to Keibo</h2>
+		<h2 class="h2">{i('home.welcome')}</h2>
 		<!-- Animated Logo -->
 		<figure>
 			<section class="img-bg" />
@@ -18,16 +26,27 @@
 			</svg>
 		</figure>
 		<!-- / -->
-		<div class="flex justify-center space-x-2">
+		<p>Try editing the following:</p>
+		{#if $user}
+			<a class="btn variant-filled" href="https://skeleton.dev/" target="_blank" rel="noreferrer">
+				Dashboard
+			</a>
+		{:else if $user === null}
 			<a
-				class="btn variant-filled"
+				class="btn variant-filled-surface bg-surface-300 dark:bg-surface-600 animate-pulse"
+				href="/auth/signin"
+				>Sign in
+			</a>
+		{:else}
+			<a
+				class="btn variant-filled bg-surface-300 dark:bg-surface-600 animate-pulse"
 				href="https://skeleton.dev/"
 				target="_blank"
 				rel="noreferrer"
 			>
-				Launch Documentation
+				loading
 			</a>
-		</div>
+		{/if}
 		<div class="space-y-2">
 			<p>Try editing the following:</p>
 			<p><code class="code">/src/routes/+layout.svelte</code></p>
@@ -46,8 +65,7 @@
 	}
 	.img-bg {
 		@apply absolute z-[-1] rounded-full blur-[50px] transition-all;
-		animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite,
-			glow 5s linear infinite;
+		animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite, glow 5s linear infinite;
 	}
 	@keyframes glow {
 		0% {
