@@ -2,7 +2,13 @@
   "home": {
     "welcome": "Bienvenue à Keibo"
   },
-  "test": {
-    "apple": "pomme"
+  "pages": {
+    "dashboard": "Tableau de bord"
+  },
+  "auth": {
+    "signin": "Se connecter",
+    "hide": "Cacher",
+    "view": "Voir",
+    "password": "Mot de passe"
   }
 }

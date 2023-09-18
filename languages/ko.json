@@ -2,7 +2,13 @@
   "home": {
     "welcome": "Keibo에 오신걸 환영합니다"
   },
-  "test": {
-    "apple": "사과"
+  "pages": {
+    "dashboard": "대시보드"
+  },
+  "auth": {
+    "signin": "로그인",
+    "hide": "숨기기",
+    "view": "보기",
+    "password": "비번"
   }
 }

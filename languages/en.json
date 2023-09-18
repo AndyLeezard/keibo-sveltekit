@@ -2,8 +2,13 @@
   "home": {
     "welcome": "Welcome to Keibo"
   },
-  "welcome": "Welcome to Keibo",
-  "test": {
-    "apple": "apple"
+  "pages": {
+    "dashboard": "Dashboard"
+  },
+  "auth": {
+    "signin": "Sign in",
+    "hide": "Hide",
+    "view": "View",
+    "password": "Password"
   }
 }
