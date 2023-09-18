@@ -18,7 +18,7 @@
 	import Lang from '$components/layout/Lang.svelte';
 	import MDLang from '$components/modals/lang.svelte';
 	import '@fontsource/fira-sans';
-	import '@fontsource/dongle';
+	import '@fontsource/gamja-flower';
 	import { Link } from '$components/util';
 
 	initializeStores();

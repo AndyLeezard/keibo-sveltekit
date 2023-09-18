@@ -27,11 +27,15 @@
 			</svg>
 		</figure>
 		<!-- / -->
-		<p>Try editing the following:</p>
+		<p>Start by creating your wallet 🚀</p>
 		{#if $user}
-			<Link role="button" className="btn variant-filled" href="/my/dashboard">Dashboard</Link>
+			<Link role="button" className="btn variant-filled" href="/my/dashboard"
+				>{i('pages.dashboard')}</Link
+			>
 		{:else if $user === null}
-			<Link role="button" className="btn variant-filled" href="/auth/signin">Sign in</Link>
+			<Link role="button" className="btn variant-filled" href="/auth/signin"
+				>{i('auth.signin')}</Link
+			>
 		{:else}
 			<span class="btn variant-filled-surface animate-pulse w-16 h-8" />
 		{/if}

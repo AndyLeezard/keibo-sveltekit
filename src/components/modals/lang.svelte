@@ -1,4 +1,5 @@
 <script lang="ts">
+	// import { setCookie } from '$lib/cookie';
 	import { languages, switchLanguage } from '@inlang/sdk-js';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 
@@ -19,12 +20,13 @@
         type="button"
         class="btn variant-filled w-[164px] mr-auto"
         on:click={() => {
+					// setCookie("language", lang)
           switchLanguage(lang);
           modalStore.close();
         }}
       >
         <img class="h-6 mr-1 rounded-md" src={`/${lang}.svg`} alt={lang} />
-        <span class="font-semibold font-sans">{lang in displayLangRecord ? displayLangRecord[lang] : lang}</span>
+        <span class="font-semibold">{lang in displayLangRecord ? displayLangRecord[lang] : lang}</span>
       </button>
     {/each}
   </div>
