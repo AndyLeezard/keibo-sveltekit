@@ -5,11 +5,22 @@
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
   import { t } from '$lib/trad';
-  let display_pw = false;
+  import { goto } from '$app/navigation';
+  import { user } from '$stores/auth';
+  // let display_pw = false;
   let isFocused: boolean = true;
+  let email = '';
+  let password = '';
+
+  const login = async () => {
+		
+    // TODO: Implement login logic here
+    // On success, update the user store and redirect to dashboard
+    // user.set({ email, first_name: '', last_name: '', id: 1 });
+    // goto('/my/dashboard');
+  };
 </script>
 
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 <svelte:head>
   <title>Keibo - authentification</title>
 </svelte:head>
@@ -17,7 +28,7 @@
   <form
     use:focusTrap={isFocused}
     class="card variant-form-material p-4 w-[400px] text-token space-y-4 border-b-0"
-    action=""
+    on:submit|preventDefault={login}
   >
     <h2 class="text-center text-xl sm:text-2xl font-bold leading-9 tracking-tight">
       {t({
@@ -28,43 +39,32 @@
       })}
     </h2>
     <label class="label">
-      <span>
-        {t({
-          en: 'Email',
-          ko: '메일 주소'
-        })}
-      </span>
-      <input class="input" type="text" placeholder="example@keibo.app" />
+      <span>{t({ en: 'Email', ko: '메일 주소' })}</span>
+      <input bind:value={email} class="input" type="email" placeholder="example@keibo.app" />
     </label>
     <label class="label relative">
       <div class="flex justify-between">
         <span>{i('auth.password')}</span>
-        <Link href="auth/register" className="mr-2"
-          >{t({
-            en: 'Recovery',
-            fr: 'Retrouver',
-            de: 'Vergessen?',
-            ko: '되찾기'
-          })}</Link
+        <Link href="auth/password-reset" className="mr-2"
+          >{t({ en: 'Recovery', fr: 'Retrouver', de: 'Vergessen?', ko: '되찾기' })}</Link
         >
       </div>
-      <input
-        class="input pr-[72px]"
-        type={display_pw ? 'text' : 'password'}
-        placeholder="********"
-      />
-      <button
-        type="button"
-        class="btn pt-0 pb-0 pl-2 pr-2 w-[56px] text-sm variant-filled-surface absolute right-3 top-1/2"
-        on:click={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          display_pw = !display_pw;
-        }}
-      >
-        {i(display_pw ? 'auth.hide' : 'auth.view')}
-      </button>
+      <!-- type={display_pw ? 'text' : 'password'} -->
+      <input bind:value={password} class="input pr-[72px]" type="password" placeholder="********" />
+      <!-- <button type="button" class="btn pt-0 pb-0 pl-2 pr-2 w-[56px] text-sm variant-filled-surface absolute right-3 top-1/2" on:click={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				display_pw = !display_pw;
+			}}>
+				{i(display_pw ? 'auth.hide' : 'auth.view')}
+			</button> -->
     </label>
+    <button
+      type="submit"
+      class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
+    >
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Login</span>
+    </button>
     <p class="text-center text-sm text-gray-600 dark:text-gray-300">
       {t({
         en: "Don't have an account?",
