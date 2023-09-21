@@ -7,6 +7,8 @@
   },
   "auth": {
     "signin": "Anmelden",
+    "signup": "Melden Sie sich an",
+    "signout": "Abmelden",
     "hide": "Verstecken",
     "view": "Sicht",
     "password": "Passwort"

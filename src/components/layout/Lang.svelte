@@ -16,7 +16,7 @@
 </script>
 
 <button
-	class="btn p-0 min-w-[32px] h-6 overflow-hidden rounded-md"
+	class="btn p-0 min-w-[26px] h-5 overflow-hidden rounded-md"
 	type="button"
 	on:click={() => open()}
 >

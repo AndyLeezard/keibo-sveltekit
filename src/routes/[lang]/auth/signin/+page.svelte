@@ -1,12 +1,13 @@
 <script lang="ts">
   import { i } from '@inlang/sdk-js';
-  import { focusTrap, getToastStore } from '@skeletonlabs/skeleton';
+  import { ProgressRadial, focusTrap, getToastStore } from '@skeletonlabs/skeleton';
+  import { goto } from '$app/navigation';
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
   import { t } from '$lib/trad';
   import { user } from '$stores/auth';
-  import { jwtCreate, getClientUser } from '$lib/derived/auth';
+  import { oAuthLogin, jwtCreate, getClientUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
 
   const toastStore = getToastStore();
@@ -60,6 +61,27 @@
     user.set(user_res.data);
     navigateTo('/my/dashboard');
   };
+  const socialLogin = async (provider: string) => {
+    if (processing) return;
+    processing = true;
+    const { statusCode, networkError, data } = await oAuthLogin(provider);
+    processing = false;
+    if (networkError || !data?.authorization_url) {
+      toastStore.trigger({
+        message: networkError
+          ? `Network error occurred ${
+              statusCode ? `with status Code: ${statusCode} while creating JWT tokens.` : ''
+            }`
+          : !data
+          ? 'Uncaught error'
+          : '',
+        // Provide any utility or variant background style:
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    goto(data.authorization_url);
+  };
 </script>
 
 <svelte:head>
@@ -102,9 +124,19 @@
     </label>
     <button
       type="submit"
+      disabled={processing}
       class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
     >
-      <span class="text-slate-800 dark:text-slate-200 font-semibold">Login</span>
+      {#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <span class="text-slate-800 dark:text-slate-200 font-semibold">{i('auth.signin')}</span>
+      {/if}
     </button>
     <p class="text-center text-sm text-gray-600 dark:text-gray-300">
       {t({
@@ -114,48 +146,73 @@
         de: 'Sie haben noch kein Konto?'
       })}
       &nbsp;&nbsp;&nbsp;
-      <Link
-        href="/auth/register"
-        className="font-bold leading-6 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-      >
-        {t({
-          en: 'Sign up',
-          fr: 'Inscrivez-vous ici',
-          ko: '회원가입하기',
-          de: 'Melden Sie sich an'
-        })}
-      </Link>
+      {#if processing}
+        <span
+          class="cursor-wait font-bold leading-6 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+        >
+          {i('auth.signup')}
+        </span>
+      {:else}
+        <Link
+          href="/auth/register"
+          className="font-bold leading-6 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+        >
+          {i('auth.signup')}
+        </Link>
+      {/if}
     </p>
     <hr
       class="h-[2px] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-slate-500 to-transparent opacity-100"
     />
     <button
       type="button"
+      disabled={processing}
       class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
+      on:click={() => socialLogin('google-oauth2')}
     >
-      <Google class="w-6 h-6" />
-      <span class="text-slate-800 dark:text-slate-50 font-semibold"
-        >{t({
-          en: 'With Google',
-          fr: 'Avec Google',
-          ko: 'Google 로그인',
-          de: 'Mit Google'
-        })}</span
-      >
+      {#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <Google class="w-6 h-6" />
+        <span class="text-slate-800 dark:text-slate-50 font-semibold"
+          >{t({
+            en: 'With Google',
+            fr: 'Avec Google',
+            ko: 'Google 로그인',
+            de: 'Mit Google'
+          })}</span
+        >
+      {/if}
     </button>
     <button
       type="button"
+      disabled={processing}
       class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
+      on:click={() => socialLogin('github')}
     >
-      <Github class="w-6 h-6" />
-      <span class="text-slate-800 dark:text-slate-50 font-semibold"
-        >{t({
-          en: 'With Github',
-          fr: 'Inscrivez-vous ici',
-          ko: 'Github 로그인',
-          de: 'Mit Github'
-        })}</span
-      >
+      {#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <Github class="w-6 h-6" />
+        <span class="text-slate-800 dark:text-slate-50 font-semibold"
+          >{t({
+            en: 'With Github',
+            fr: 'Inscrivez-vous ici',
+            ko: 'Github 로그인',
+            de: 'Mit Github'
+          })}</span
+        >
+      {/if}
     </button>
   </form>
 </div>

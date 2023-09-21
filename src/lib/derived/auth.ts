@@ -1,5 +1,11 @@
 import { checkCookies } from '$lib/cookie';
-import { BASE_URL, REQUEST_INIT, baseFetchQuery } from '../node-fetch';
+import {
+  BASE_URL,
+  REQUEST_INIT,
+  baseFetchQuery
+} from '../node-fetch'; /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PUBLIC_REDIRECT_URL } from '$env/static/public';
+import { dev } from '$app/environment';
 
 export const getClientUser = async (): Promise<TGenericFetchResponse<SerializedUser>> => {
   const uri = `${BASE_URL}/users/me/`;
@@ -66,12 +72,52 @@ export const logout = async () => {
   const uri = `${BASE_URL}/logout/`;
   const init = {
     credentials: 'include',
-    method: 'POST',
+    method: 'POST'
     // redirect: 'follow'
   } as const;
-  return await baseFetchQuery<"", 'text'>({
+  return await baseFetchQuery<'', 'text'>({
     uri,
     init,
     resDataType: 'text'
+  });
+};
+
+export async function oAuthLogin(provider: string) {
+  const uri = `${BASE_URL}/o/${provider}/?redirect_uri=${
+    dev ? 'http://localhost:3000' : PUBLIC_REDIRECT_URL
+  }/lang/auth/oauth/${provider}`;
+  const init = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+    credentials: "include",
+  } as const;
+  return await baseFetchQuery<{
+    authorization_url: string;
+  }>({
+    uri,
+    init
+  });
+}
+
+export const handleOAuthRedirection = async (args: {
+  provider: string; // "google-oauth2" | "github"
+  state: string;
+  code: string;
+}): Promise<TGenericFetchResponse<AuthResponseTokens>> => {
+  const { provider, state, code } = args;
+  const uri = `${BASE_URL}/o/${provider}/?state=${state}&code=${code}`;
+  const init = {
+    ...REQUEST_INIT,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST'
+  };
+  return await baseFetchQuery<AuthResponseTokens>({
+    uri,
+    init
   });
 };

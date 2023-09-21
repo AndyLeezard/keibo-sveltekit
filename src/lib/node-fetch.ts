@@ -10,10 +10,10 @@ declare global {
 }
 
 export const BASE_URL = `${PUBLIC_HOST}/api` as const;
-export const REQUEST_INIT = {
+export const REQUEST_INIT:RequestInit = {
   credentials: 'include',
-  mode: 'cors'
-} as const;
+  // mode: 'cors'
+};
 export const FIELD_ERROR: TGenericFetchResponse<null> = {
   statusCode: 0,
   networkError: true,

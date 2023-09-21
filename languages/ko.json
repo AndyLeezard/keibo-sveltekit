@@ -7,6 +7,8 @@
   },
   "auth": {
     "signin": "로그인",
+    "signup": "회원가입",
+    "signout": "로그아웃",
     "hide": "숨기기",
     "view": "보기",
     "password": "비번"

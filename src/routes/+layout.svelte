@@ -10,7 +10,7 @@
     type ModalComponent
   } from '@skeletonlabs/skeleton';
   import Footer from '$components/layout/Footer.svelte';
-  import Avatar from '$components/layout/Avatar.svelte';
+  import AuthMenu from '$components/layout/AuthMenu.svelte';
   import { user } from '$stores/auth';
   import { initializeStores, getToastStore, storePopup } from '@skeletonlabs/skeleton';
   import Lang from '$components/layout/Lang.svelte';
@@ -20,7 +20,6 @@
   import { Link } from '$components/util';
   import { getClientUser } from '$lib/derived/auth';
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-  import { t } from '$lib/trad';
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
   initializeStores();
@@ -79,7 +78,7 @@
         <Link><strong class="text-xl">Keibo</strong></Link>
       </svelte:fragment>
       <svelte:fragment slot="trail">
-        <Avatar />
+        <AuthMenu />
         <LightSwitch />
         <Lang />
       </svelte:fragment>

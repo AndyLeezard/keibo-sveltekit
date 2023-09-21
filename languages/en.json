@@ -7,6 +7,8 @@
   },
   "auth": {
     "signin": "Sign in",
+    "signup": "Sign up",
+    "signout": "Sign out",
     "hide": "Hide",
     "view": "View",
     "password": "Password"
