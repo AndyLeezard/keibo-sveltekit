@@ -1,15 +1,93 @@
-<script>
-	import { Link } from '$components/util';
-	import { user } from '$stores/auth';
+<script lang="ts">
+  import { Link } from '$components/util';
+  import { logout } from '$lib/derived/auth';
+  import { navigateTo } from '$lib/routes';
+  import { t } from '$lib/trad';
+  import { user } from '$stores/auth';
+  import { Avatar, popup, getToastStore, ProgressBar } from '@skeletonlabs/skeleton';
+  import type { PopupSettings } from '@skeletonlabs/skeleton';
+
+  let processing = false;
+
+  $: initial_1 = ($user?.first_name ? $user.first_name.at(0) : undefined) ?? '';
+  $: initial_2 = ($user?.last_name ? $user.last_name.at(0) : undefined) ?? '';
+  $: initial = initial_1 + initial_2;
+
+  const popupClick: PopupSettings = {
+    event: 'click',
+    target: 'popupAvatar',
+    placement: 'bottom',
+    closeQuery: '#btn-sign-out'
+  };
+  const toastStore = getToastStore();
+
+  const onLogOut = async () => {
+    if (processing) return;
+    processing = true;
+    const { statusCode, data, networkError } = await logout();
+    processing = false;
+    if (statusCode === 204) {
+      user.set(null);
+      toastStore.trigger({
+        message: t({
+          en: 'Successfully signed out',
+          de: 'Erfolgreich unterschrieben',
+          fr: 'Vous vous êtes déconnecté(e)',
+          ko: '로그아웃 완료'
+        }),
+        background: 'variant-filled-success'
+      });
+      navigateTo('/');
+      return;
+    }
+    toastStore.trigger({
+      message: networkError
+        ? `Network error occurred ${
+            statusCode ? `with status Code: ${statusCode} while fetching user data.` : ''
+          }`
+        : !data
+        ? 'Uncaught error'
+        : '',
+      // Provide any utility or variant background style:
+      background: 'variant-filled-error'
+    });
+  };
 </script>
 
 {#if $user}
-	<button type="button" class="btn variant-filled">
-		<span>(icon)</span>
-		<span>{JSON.stringify(user)}</span>
-	</button>
+  <button type="button" class="btn m-0 p-0" use:popup={popupClick}>
+    <Avatar
+      role="button"
+      initials={initial ? initial : 'Guest'}
+      class=""
+      width="w-8"
+      background="variant-soft-primary"
+    />
+  </button>
+  <div class="card p-4 min-w-[128px]" data-popup="popupAvatar">
+    <div class="grid grid-cols-1 gap-2">
+      <button
+        disabled={processing}
+        id="btn-sign-out"
+        class="btn variant-filled-error"
+        on:click={() => onLogOut()}
+      >
+        {#if processing}
+          <ProgressBar value={undefined} />
+        {:else}
+          {t({
+            en: 'Sign out',
+            fr: 'Se déconnecter',
+            ko: '로그아웃',
+            de: 'Abmelden'
+          })}
+        {/if}
+      </button>
+    </div>
+    <div class="arrow bg-surface-100-800-token" />
+  </div>
 {:else if $user === undefined}
-	<div class="btn variant-filled-surface animate-pulse min-h-[42px] min-w-[84px]" />
+  <div class="btn variant-filled-surface animate-pulse min-h-[42px] min-w-[84px]" />
 {:else}
-	<Link href={"auth/signin"} className="btn variant-filled font-semibold" >Sign in</Link>
+  <Link href={'auth/signin'} className="btn variant-filled font-semibold">Sign in</Link>
 {/if}

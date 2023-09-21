@@ -1,21 +1,15 @@
 <script lang="ts">
   import { i } from '@inlang/sdk-js';
   import { focusTrap } from '@skeletonlabs/skeleton';
-  import Google from 'virtual:icons/devicon/google';
-  import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
   import { t } from '$lib/trad';
-  import { goto } from '$app/navigation';
   import { user } from '$stores/auth';
   // let display_pw = false;
   let isFocused: boolean = true;
   let email = '';
 
-  const login = async () => {
+  const onSubmit = async () => {
     // TODO: Implement password recovery logic here
-    // On success, update the user store and redirect to dashboard
-    // user.set({ email, first_name: '', last_name: '', id: 1 });
-    // goto('/my/dashboard');
   };
 </script>
 
@@ -26,7 +20,7 @@
   <form
     use:focusTrap={isFocused}
     class="card variant-form-material p-4 w-[400px] text-token space-y-4 border-b-0"
-    on:submit|preventDefault={login}
+    on:submit|preventDefault={onSubmit}
   >
     <h2 class="text-center text-xl sm:text-2xl font-bold leading-9 tracking-tight">
       {t({

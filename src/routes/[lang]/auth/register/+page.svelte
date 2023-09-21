@@ -4,7 +4,6 @@
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
-  import { goto } from '$app/navigation';
   import { user } from '$stores/auth';
   import { t } from '$lib/trad';
   let isFocused: boolean = true;
@@ -14,9 +13,6 @@
 
   const register = async () => {
     // TODO: Implement registration logic here
-    // On success, update the user store and redirect to dashboard
-    // user.set({ email, first_name: '', last_name: '', id: 1 });
-    // goto('/my/dashboard');
   };
 </script>
 

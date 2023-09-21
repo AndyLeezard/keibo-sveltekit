@@ -1,23 +1,64 @@
 <script lang="ts">
   import { i } from '@inlang/sdk-js';
-  import { focusTrap } from '@skeletonlabs/skeleton';
+  import { focusTrap, getToastStore } from '@skeletonlabs/skeleton';
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
   import { t } from '$lib/trad';
-  import { goto } from '$app/navigation';
   import { user } from '$stores/auth';
+  import { jwtCreate, getClientUser } from '$lib/derived/auth';
+  import { navigateTo } from '$lib/routes';
+
+  const toastStore = getToastStore();
   // let display_pw = false;
   let isFocused: boolean = true;
   let email = '';
   let password = '';
+  let processing = false;
 
   const login = async () => {
-		
-    // TODO: Implement login logic here
-    // On success, update the user store and redirect to dashboard
-    // user.set({ email, first_name: '', last_name: '', id: 1 });
-    // goto('/my/dashboard');
+    if (processing) return;
+    processing = true;
+    const jwt_res = await jwtCreate({
+      email,
+      password
+    });
+    processing = false;
+    if (jwt_res.networkError || !jwt_res.data) {
+      toastStore.trigger({
+        message: jwt_res.networkError
+          ? `Network error occurred ${
+              jwt_res.statusCode
+                ? `with status Code: ${jwt_res.statusCode} while creating JWT tokens.`
+                : ''
+            }`
+          : !jwt_res.data
+          ? 'Uncaught error'
+          : '',
+        // Provide any utility or variant background style:
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    const user_res = await getClientUser();
+    if (user_res.networkError || !user_res.data) {
+      toastStore.trigger({
+        message: jwt_res.networkError
+          ? `Network error occurred ${
+              user_res.statusCode
+                ? `with status Code: ${user_res.statusCode} while fetching user data.`
+                : ''
+            }`
+          : !jwt_res.data
+          ? 'Uncaught error'
+          : '',
+        // Provide any utility or variant background style:
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    user.set(user_res.data);
+    navigateTo('/my/dashboard');
   };
 </script>
 
@@ -45,9 +86,9 @@
     <label class="label relative">
       <div class="flex justify-between">
         <span>{i('auth.password')}</span>
-        <Link href="auth/password-reset" className="mr-2"
-          >{t({ en: 'Recovery', fr: 'Retrouver', de: 'Vergessen?', ko: '되찾기' })}</Link
-        >
+        <Link href="auth/password-reset" className="mr-2">
+          {t({ en: 'Recovery', fr: 'Retrouver', de: 'Vergessen?', ko: '되찾기' })}
+        </Link>
       </div>
       <!-- type={display_pw ? 'text' : 'password'} -->
       <input bind:value={password} class="input pr-[72px]" type="password" placeholder="********" />
