@@ -1,14 +1,14 @@
 <script lang="ts">
   import { i } from '@inlang/sdk-js';
-  import { focusTrap, getToastStore } from '@skeletonlabs/skeleton';
+  import { ProgressRadial, focusTrap, getToastStore } from '@skeletonlabs/skeleton';
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
-  import { user } from '$stores/auth';
   import { t } from '$lib/trad';
-  import { registerUser } from '$lib/derived/auth';
+  import { oAuthLogin, registerUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
-  let isFocused: boolean = true;
+  import { goto } from '$app/navigation';
+  let isFocused = true;
   let first_name = '';
   let last_name = '';
   let email = '';
@@ -39,6 +39,22 @@
       navigateTo('/auth/signin?register=true');
     }
   };
+  const socialLogin = async (provider: string) => {
+    if (processing) return;
+    processing = true;
+    const oauth_jwt_res = await oAuthLogin(provider);
+    processing = false;
+    if (oauth_jwt_res.errorMessage || !oauth_jwt_res.data?.authorization_url) {
+      toastStore.trigger({
+        message: oauth_jwt_res.errorMessage
+          ? `${oauth_jwt_res.errorMessage} while creating JWT tokens.}`
+          : 'An uncaught error occurred while signing in',
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    goto(oauth_jwt_res.data.authorization_url);
+  };
 </script>
 
 <svelte:head>
@@ -61,6 +77,7 @@
     <label class="label">
       <span>{i('auth.first_name')}</span>
       <input
+        disabled={processing}
         bind:value={first_name}
         class="input"
         type="text"
@@ -75,6 +92,7 @@
     <label class="label">
       <span>{i('auth.last_name')}</span>
       <input
+        disabled={processing}
         bind:value={last_name}
         class="input"
         type="text"
@@ -98,7 +116,13 @@
     <label class="label relative">
       <span>{i('auth.password')}</span>
       <!-- type={display_pw ? 'text' : 'password'} -->
-      <input bind:value={password} class="input pr-[72px]" type="password" placeholder="********" />
+      <input
+        disabled={processing}
+        bind:value={password}
+        class="input pr-[72px]"
+        type="password"
+        placeholder="********"
+      />
       <!-- <button
         type="button"
         class="btn pt-0 pb-0 pl-2 pr-2 w-[56px] text-sm variant-filled-surface absolute right-3 top-1/2"
@@ -114,6 +138,7 @@
     <label class="label relative">
       <span>{i('auth.password_confirm')}</span>
       <input
+        disabled={processing}
         bind:value={re_password}
         class="input pr-[72px]"
         type="password"
@@ -131,11 +156,17 @@
         {i(display_pw ? 'auth.hide' : 'auth.view')}
       </button> -->
     </label>
-    <button
-      type="submit"
-      class="btn variant-filled-surface w-full"
-    >
-      <span class="text-slate-800 dark:text-slate-200 font-semibold">{i('auth.signup')}</span>
+    <button disabled={processing} type="submit" class="btn variant-filled-surface w-full"
+      >{#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <span class="text-slate-800 dark:text-slate-200 font-semibold">{i('auth.signup')}</span>
+      {/if}
     </button>
     <p class="text-center text-sm text-gray-600 dark:text-gray-300">
       {t({
@@ -145,46 +176,72 @@
         de: 'Haben Sie bereits ein Konto?'
       })}
       &nbsp;&nbsp;&nbsp;
-      <Link
-        href="/auth/signin"
-        className="font-bold leading-6 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-      >
-        {i('auth.signin')}
-      </Link>
+      {#if processing}
+        <span
+          class="cursor-wait font-bold leading-6 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+        >
+          {i('auth.signin')}
+        </span>
+      {:else}
+        <Link
+          href="/auth/register"
+          className="font-bold leading-6 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+        >
+          {i('auth.signin')}
+        </Link>
+      {/if}
     </p>
     <hr
       class="h-[2px] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-slate-500 to-transparent opacity-100"
     />
     <button
+      disabled={processing}
       type="button"
       class="btn variant-filled-surface w-full"
-    >
-      <Google class="w-6 h-6" />
-      <span class="text-slate-800 dark:text-slate-50 font-semibold"
-        >{t({
-          en: 'With Google',
-          fr: 'Avec Google',
-          ko: 'Google 로그인',
-          de: 'Mit Google'
-        })}</span
-      >
+      on:click={() => socialLogin('google-oauth2')}
+      >{#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <Google class="w-6 h-6" />
+        <span class="text-slate-800 dark:text-slate-50 font-semibold"
+          >{t({
+            en: 'With Google',
+            fr: 'Avec Google',
+            ko: 'Google 로그인',
+            de: 'Mit Google'
+          })}</span
+        >
+      {/if}
     </button>
     <button
+      disabled={processing}
       type="button"
       class="btn variant-filled-surface w-full"
+      on:click={() => socialLogin('github')}
     >
-      <Github class="w-6 h-6" />
-      <span class="text-slate-800 dark:text-slate-50 font-semibold"
-        >{t({
-          en: 'With Github',
-          fr: 'Inscrivez-vous ici',
-          ko: 'Github 로그인',
-          de: 'Mit Github'
-        })}</span
-      >
+      {#if processing}
+        <ProgressRadial
+          value={undefined}
+          width="w-6"
+          meter="stroke-primary-500"
+          track="stroke-primary-500/30"
+        />
+      {:else}
+        <Github class="w-6 h-6" />
+        <span class="text-slate-800 dark:text-slate-50 font-semibold"
+          >{t({
+            en: 'With Github',
+            fr: 'Inscrivez-vous ici',
+            ko: 'Github 로그인',
+            de: 'Mit Github'
+          })}</span
+        >
+      {/if}
     </button>
   </form>
 </div>
-
-<style lang="postcss">
-</style>

@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PUBLIC_HOST } from '$env/static/public';
-import axios from 'axios';
-import type { AxiosRequestConfig } from 'axios';
-import { isJSObject } from './ts-utils';
 
 declare global {
   type TGenericFetchResponse<T> = {

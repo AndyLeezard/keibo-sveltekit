@@ -15,19 +15,20 @@ type AxiosRequestParamsBase = {
 
 export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
   const { uri, config } = args;
-  const postUri = `${BASE_URL}${uri.startsWith('/') ? uri : `/${uri}`}`;
-  let data: T | { detail: string } | undefined = undefined;
+  const getUri = `${BASE_URL}${uri.startsWith('/') ? uri : `/${uri}`}`;
+  let data: T | undefined = undefined;
   let errorMessage = '';
   let statusCode = 400;
   try {
-    const res = await axios.post<T | { detail: string }>(postUri, {
+    const res = await axios.get<T>(getUri, {
       ...BASE_CONFIG,
       ...config
     });
     statusCode = res.status;
     const statusOK = `${statusCode}`.startsWith('2');
-    data = res.data;
-    if (!statusOK) {
+    if (statusOK) {
+      data = res.data;
+    } else {
       if (
         isJSObject(data) &&
         Object.prototype.hasOwnProperty.call(data, 'detail') &&
@@ -40,12 +41,20 @@ export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (!errorMessage) {
-        errorMessage = error.message;
-      }
       if (error.response) {
-        data = error.response.data;
+        // data = error.response.data;
         statusCode = error.response.status;
+        if (!errorMessage) {
+          if (
+            isJSObject(error.response.data) &&
+            Object.prototype.hasOwnProperty.call(error.response.data, 'detail') &&
+            typeof error.response.data.detail === 'string'
+          ) {
+            errorMessage = error.response.data.detail;
+          } else {
+            errorMessage = error.message;
+          }
+        }
       }
     }
     console.error(error);
@@ -73,18 +82,19 @@ export const basePostQuery = async <T>(
     }
     final_payload = formData;
   }
-  let data: T | { detail: string } | undefined = undefined;
+  let data: T | undefined = undefined;
   let errorMessage = '';
   let statusCode = 400;
   try {
-    const res = await axios.post<T | { detail: string }>(postUri, final_payload, {
+    const res = await axios.post<T>(postUri, final_payload, {
       ...BASE_CONFIG,
       ...config
     });
     statusCode = res.status;
     const statusOK = `${statusCode}`.startsWith('2');
-    data = res.data;
-    if (!statusOK) {
+    if (statusOK) {
+      data = res.data;
+    } else {
       if (
         isJSObject(data) &&
         Object.prototype.hasOwnProperty.call(data, 'detail') &&
@@ -98,7 +108,7 @@ export const basePostQuery = async <T>(
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response) {
-        data = error.response.data;
+        // data = error.response.data;
         statusCode = error.response.status;
         if (!errorMessage) {
           if (

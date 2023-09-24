@@ -5,7 +5,7 @@ import type { RouteParams } from './$types';
 
 export function load({
   params
-}: LoadEvent<RouteParams, null, {}, '/[lang]/auth/activate/[uid]/[token]'>) {
+}: LoadEvent<RouteParams, null, {}, '/[lang]/auth/password-reset/[uid]/[token]'>) {
   const { uid, token } = params;
   return {
     uid,

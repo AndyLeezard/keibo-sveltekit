@@ -12,12 +12,15 @@
     "signin": "로그인",
     "signup": "회원가입",
     "signout": "로그아웃",
-    "go_check_mail": "인증 이메일을 확인하세요",
+    "go_check_activation_mail": "인증 이메일을 확인하세요",
+    "go_check_pw_reset_mail": "패스워드 재설정 인증 이메일을 확인하세요",
+    "pw_reset_confirmed": "패스워드 재설정 완료",
     "hide": "숨기기",
     "view": "보기",
-    "password": "비번",
-    "password_confirm": "비번 재확인",
+    "password": "패스워드",
+    "password_confirm": "패스워드 재확인",
     "first_name": "이름",
-    "last_name": "성"
+    "last_name": "성",
+    "no_active_account": "해당 정보와 일치하는 활성 유저가 없습니다"
   }
 }

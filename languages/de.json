@@ -12,12 +12,15 @@
     "signin": "Anmelden",
     "signup": "Melden Sie sich an",
     "signout": "Abmelden",
-    "go_check_mail": "Bitte überprüfen Sie die e-mails, um das Konto zu überprüfen",
+    "go_check_activation_mail": "Bitte überprüfen Sie die e-mails, um das Konto zu überprüfen",
+    "go_check_pw_reset_mail": "Bitte überprüfen Sie die E -Mail, um das Passwort zurückzusetzen.",
+    "pw_reset_confirmed": "Ihr Passwort wurde erfolgreich zurückgesetzt",
     "hide": "Verstecken",
     "view": "Sicht",
     "password": "Passwort",
     "password_confirm": "Bestätige das Passwort",
     "first_name": "Vorname",
-    "last_name": "Nachname"
+    "last_name": "Nachname",
+    "no_active_account": "Kein aktives Konto bei den angegebenen Anmeldeinformationen gefunden"
   }
 }

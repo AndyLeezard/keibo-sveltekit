@@ -9,17 +9,13 @@
   let email: string = data.email ?? '';
   let processing = false;
 
-  let isFocused: boolean = true;
+  let isFocused = true;
   const sendEmail = async () => {
     if (processing) return;
     processing = true;
     const email_resend_res = await resendVerificationEmail({ email });
     processing = false;
     if (email_resend_res.statusCode === 204) {
-      toastStore.trigger({
-        message: i('auth.go_check_mail'),
-        background: 'variant-filled-success'
-      });
       navigateTo('/auth/signin?register=true');
       return;
     }

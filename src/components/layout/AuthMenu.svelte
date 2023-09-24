@@ -14,7 +14,7 @@
   $: initial_1 = ($user?.first_name ? $user.first_name.at(0) : undefined) ?? '';
   $: initial_2 = ($user?.last_name ? $user.last_name.at(0) : undefined) ?? '';
   $: initial = initial_1 + initial_2;
-  $: lastpathsegement = $page.url.pathname.split('/').at(-1);
+  // $: lastpathsegement = $page.url.pathname.split('/').at(-1);
 
   const popupClick: PopupSettings = {
     event: 'click',
@@ -27,7 +27,7 @@
   const onLogOut = async () => {
     if (processing) return;
     processing = true;
-    const { statusCode, data, errorMessage } = await logout();
+    const { statusCode, errorMessage } = await logout();
     processing = false;
     if (statusCode === 204) {
       user.set(null);

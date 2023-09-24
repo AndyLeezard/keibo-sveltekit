@@ -6,7 +6,7 @@
   export async function load() {
     if (user === null) {
       return {
-        redirect: '/login',
+        redirect: '/login'
       };
     }
 
@@ -14,6 +14,4 @@
   }
 </script>
 
-<div>
-  Protected Content
-</div>
+<div>Protected Content</div>

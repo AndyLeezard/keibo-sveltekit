@@ -44,7 +44,10 @@
     console.log(`%cChecking if the user is logged in...`, 'color: #ccc');
     const { statusCode, errorMessage, data } = await getClientUser();
     if (statusCode === 401) {
-      console.log(`%c${errorMessage} \n(No user detected.) \nHttp-only JWT probably does not exist.`, 'color: #ccc');
+      console.log(
+        `%c${errorMessage} \n(No user detected.) \nHttp-only JWT probably does not exist.`,
+        'color: #ccc'
+      );
       user.set(null);
       return;
     }

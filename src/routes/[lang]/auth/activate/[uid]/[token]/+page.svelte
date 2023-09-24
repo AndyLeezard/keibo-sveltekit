@@ -9,7 +9,11 @@
   const toastStore = getToastStore();
   let error: null | string = null;
   onMount(async () => {
-    const { statusCode, errorMessage, data: activation_data } = await activateAccount(data);
+    const { statusCode, errorMessage } = await activateAccount(data);
+    if (`${statusCode}`.startsWith('2')) {
+      navigateTo('auth/signin?activate=true');
+      return;
+    }
     if (errorMessage) {
       error = errorMessage ? errorMessage : 'An uncaught error occurred while activating account';
       toastStore.trigger({
@@ -18,7 +22,6 @@
       });
       return;
     }
-    navigateTo('auth/signin?activate=true');
   });
 </script>
 

@@ -10,20 +10,21 @@
   import { oAuthLogin, jwtCreate, getClientUser, checkUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
   export let data;
+  const { from_register, from_activation, from_reset_pw_request, from_confirm_pw_request } = data;
   const toastStore = getToastStore();
   // let display_pw = false;
-  let isFocused: boolean = true;
+  let isFocused = true;
   let email = '';
   let password = '';
   let processing = false;
 
-  if (data.from_register) {
+  if (from_register) {
     toastStore.trigger({
-      message: i('auth.go_check_mail'),
+      message: i('auth.go_check_activation_mail'),
       background: 'variant-filled-success'
     });
   }
-  if (data.from_activation) {
+  if (from_activation) {
     toastStore.trigger({
       message: t({
         en: 'Your account has been successfully activated',
@@ -31,6 +32,18 @@
         ko: '메일 주소 인증 완료',
         de: 'Ihr Konto wurde erfolgreich aktiviert'
       }),
+      background: 'variant-filled-success'
+    });
+  }
+  if (from_reset_pw_request) {
+    toastStore.trigger({
+      message: i('auth.go_check_pw_reset_mail'),
+      background: 'variant-filled-success'
+    });
+  }
+  if (from_confirm_pw_request) {
+    toastStore.trigger({
+      message: i('auth.pw_reset_confirmed'),
       background: 'variant-filled-success'
     });
   }
@@ -51,7 +64,7 @@
     }
     if (!check_user_res.data.exists) {
       toastStore.trigger({
-        message: 'No active account found with the given credentials',
+        message: i('auth.no_active_account'),
         background: 'variant-filled-error'
       });
       processing = false;
@@ -237,6 +250,3 @@
     </button>
   </form>
 </div>
-
-<style lang="postcss">
-</style>

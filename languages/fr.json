@@ -12,12 +12,15 @@
     "signin": "Se connecter",
     "signup": "Inscrivez-vous ici",
     "signout": "Se déconnecter",
-    "go_check_mail": "Un e-mail vous a été envoyé pour activer votre compte",
+    "go_check_activation_mail": "Un e-mail vous a été envoyé pour activer votre compte",
+    "go_check_pw_reset_mail": "Un e-mail vous a été envoyé pour réinitialiser votre mot de passe",
+    "pw_reset_confirmed": "Votre mot de passe a été modifié avec succès.",
     "hide": "Cacher",
     "view": "Voir",
     "password": "Mot de passe",
     "password_confirm": "Confirmation du mot de passe",
     "first_name": "Prénom",
-    "last_name": "Nom"
+    "last_name": "Nom",
+    "no_active_account": "Aucun compte actif trouvé avec les informations d'identification fournies"
   }
 }
