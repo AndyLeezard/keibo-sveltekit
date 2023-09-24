@@ -20,6 +20,8 @@
   import { Link } from '$components/util';
   import { getClientUser } from '$lib/derived/auth';
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+  export let data;
+  const { userHasJWT } = data;
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
   initializeStores();
@@ -36,11 +38,15 @@
   };
 
   onMount(async () => {
-    if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) {
+    /* if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) {
       // Bot detected. Do not run auth check request.
       return;
-    }
+    } */
     // Human detected. Proceed with auth check request.
+    if (!userHasJWT) {
+      user.set(null);
+      return;
+    }
     console.log(`%cChecking if the user is logged in...`, 'color: #ccc');
     const { statusCode, errorMessage, data } = await getClientUser();
     if (statusCode === 401) {

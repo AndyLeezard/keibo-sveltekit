@@ -28,7 +28,7 @@
       </svg>
     </figure>
     {#if $user}
-      <Link role="button" className="btn variant-filled" href="/account/new"
+      <Link role="button" className="btn variant-filled" href="/wallet/new"
         >{t({
           en: 'Start by creating a wallet 🚀',
           fr: 'Commencez par créer a portefeuille 🚀',
