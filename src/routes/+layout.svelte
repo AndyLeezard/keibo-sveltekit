@@ -41,21 +41,18 @@
       return;
     }
     // Human detected. Proceed with auth check request.
-    const { statusCode, networkError, data } = await getClientUser();
+    console.log(`%cChecking if the user is logged in...`, 'color: #ccc');
+    const { statusCode, errorMessage, data } = await getClientUser();
     if (statusCode === 401) {
-      console.log('%cNo user detected. Http-only JWT probably does not exist.', 'color: #ccc');
+      console.log(`%c${errorMessage} \n(No user detected.) \nHttp-only JWT probably does not exist.`, 'color: #ccc');
       user.set(null);
       return;
     }
-    if (networkError || !data) {
+    if (errorMessage || !data) {
       toastStore.trigger({
-        message: networkError
-          ? `Network error occurred ${
-              statusCode ? `with status Code: ${statusCode} while restoring user auth session.` : ''
-            }`
-          : !data
-          ? 'Uncaught error'
-          : '',
+        message: errorMessage
+          ? `${errorMessage} while restoring user auth session.`
+          : 'Uncaught error',
         // Provide any utility or variant background style:
         background: 'variant-filled-error'
       });

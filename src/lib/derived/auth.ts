@@ -6,6 +6,7 @@ import {
 } from '../node-fetch'; /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PUBLIC_REDIRECT_URL } from '$env/static/public';
 import { dev } from '$app/environment';
+import { basePostQuery } from '$lib/axios';
 
 export const getClientUser = async (): Promise<TGenericFetchResponse<SerializedUser>> => {
   const uri = `${BASE_URL}/users/me/`;
@@ -87,11 +88,11 @@ export async function oAuthLogin(provider: string) {
     dev ? 'http://localhost:3000' : PUBLIC_REDIRECT_URL
   }/lang/auth/oauth/${provider}`;
   const init = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json'
     },
-    credentials: "include",
+    credentials: 'include'
   } as const;
   return await baseFetchQuery<{
     authorization_url: string;
@@ -119,5 +120,60 @@ export const handleOAuthRedirection = async (args: {
   return await baseFetchQuery<AuthResponseTokens>({
     uri,
     init
+  });
+};
+
+export const registerUser = async (args: {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  re_password: string;
+}): Promise<TGenericFetchResponse<SerializedUser>> => {
+  const uri = `${BASE_URL}/users/`;
+  const init = {
+    ...REQUEST_INIT,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(args)
+  };
+  return await baseFetchQuery<SerializedUser>({
+    uri,
+    init
+  });
+};
+
+export const checkUser = async (email: string) => {
+  const uri = `${BASE_URL}/check_user/`;
+  const init = {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email })
+    // redirect: 'follow'
+  } as const;
+  return await baseFetchQuery<{ exists: false } | { exists: true; activated: boolean }>({
+    uri,
+    init
+  });
+};
+
+export const activateAccount = async (payload: { uid: string; token: string }) => {
+  const uri = 'users/activation/';
+  return await basePostQuery<''>({
+    uri,
+    payload
+  });
+};
+
+export const resendVerificationEmail = async (payload: { email: string }) => {
+  const uri = '/users/resend_activation/';
+  return await basePostQuery<''>({
+    uri,
+    payload
   });
 };

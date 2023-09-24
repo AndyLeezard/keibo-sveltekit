@@ -27,7 +27,7 @@
   const onLogOut = async () => {
     if (processing) return;
     processing = true;
-    const { statusCode, data, networkError } = await logout();
+    const { statusCode, data, errorMessage } = await logout();
     processing = false;
     if (statusCode === 204) {
       user.set(null);
@@ -44,13 +44,7 @@
       return;
     }
     toastStore.trigger({
-      message: networkError
-        ? `Network error occurred ${
-            statusCode ? `with status Code: ${statusCode} while fetching user data.` : ''
-          }`
-        : !data
-        ? 'Uncaught error'
-        : '',
+      message: errorMessage ? errorMessage : 'An uncaught error occurred while signing out',
       // Provide any utility or variant background style:
       background: 'variant-filled-error'
     });

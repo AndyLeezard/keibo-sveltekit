@@ -48,34 +48,22 @@
       state,
       code
     });
-    if (jwt_res.networkError || !jwt_res.data) {
+    if (jwt_res.errorMessage || !jwt_res.data) {
       toastStore.trigger({
-        message: jwt_res.networkError
-          ? `Network error occurred ${
-              jwt_res.statusCode
-                ? `with status Code: ${jwt_res.statusCode} while creating JWT tokens.`
-                : ''
-            }`
-          : !jwt_res.data
-          ? 'Uncaught error'
-          : '',
+        message: jwt_res.errorMessage
+          ? `${jwt_res.errorMessage} while creating JWT tokens.`
+          : 'Uncaught error',
         // Provide any utility or variant background style:
         background: 'variant-filled-error'
       });
       return;
     }
     const user_res = await getClientUser();
-    if (user_res.networkError || !user_res.data) {
+    if (user_res.errorMessage || !user_res.data) {
       toastStore.trigger({
-        message: jwt_res.networkError
-          ? `Network error occurred ${
-              user_res.statusCode
-                ? `with status Code: ${user_res.statusCode} while fetching user data.`
-                : ''
-            }`
-          : !jwt_res.data
-          ? 'Uncaught error'
-          : '',
+        message: jwt_res.errorMessage
+          ? `${jwt_res.errorMessage} while fetching user data.`
+          : 'Uncaught error',
         // Provide any utility or variant background style:
         background: 'variant-filled-error'
       });

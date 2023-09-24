@@ -7,9 +7,9 @@
   import { Link } from '$components/util';
   import { t } from '$lib/trad';
   import { user } from '$stores/auth';
-  import { oAuthLogin, jwtCreate, getClientUser } from '$lib/derived/auth';
+  import { oAuthLogin, jwtCreate, getClientUser, checkUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
-
+  export let data;
   const toastStore = getToastStore();
   // let display_pw = false;
   let isFocused: boolean = true;
@@ -17,70 +17,95 @@
   let password = '';
   let processing = false;
 
+  if (data.from_register) {
+    toastStore.trigger({
+      message: i('auth.go_check_mail'),
+      background: 'variant-filled-success'
+    });
+  }
+  if (data.from_activation) {
+    toastStore.trigger({
+      message: t({
+        en: 'Your account has been successfully activated',
+        fr: 'Votre compte a été activé avec succès',
+        ko: '메일 주소 인증 완료',
+        de: 'Ihr Konto wurde erfolgreich aktiviert'
+      }),
+      background: 'variant-filled-success'
+    });
+  }
+
   const login = async () => {
     if (processing) return;
     processing = true;
+    const check_user_res = await checkUser(email);
+    if (check_user_res.errorMessage || !check_user_res.data) {
+      toastStore.trigger({
+        message: check_user_res.errorMessage
+          ? check_user_res.errorMessage
+          : 'An uncaught error occurred while checking user',
+        background: 'variant-filled-error'
+      });
+      processing = false;
+      return;
+    }
+    if (!check_user_res.data.exists) {
+      toastStore.trigger({
+        message: 'No active account found with the given credentials',
+        background: 'variant-filled-error'
+      });
+      processing = false;
+      return;
+    }
+    if (check_user_res.data.exists && !check_user_res.data.activated) {
+      navigateTo(`/auth/resend-email/?email=${email}`);
+      processing = false;
+      return;
+    }
     const jwt_res = await jwtCreate({
       email,
       password
     });
-    processing = false;
-    if (jwt_res.networkError || !jwt_res.data) {
+    if (jwt_res.errorMessage || !jwt_res.data) {
       toastStore.trigger({
-        message: jwt_res.networkError
-          ? `Network error occurred ${
-              jwt_res.statusCode
-                ? `with status Code: ${jwt_res.statusCode} while creating JWT tokens.`
-                : ''
-            }`
-          : !jwt_res.data
-          ? 'Uncaught error'
-          : '',
-        // Provide any utility or variant background style:
+        message: jwt_res.errorMessage
+          ? jwt_res.errorMessage
+          : 'An uncaught error occurred while signing in',
         background: 'variant-filled-error'
       });
+      processing = false;
       return;
     }
     const user_res = await getClientUser();
-    if (user_res.networkError || !user_res.data) {
+    if (user_res.errorMessage || !user_res.data) {
       toastStore.trigger({
-        message: jwt_res.networkError
-          ? `Network error occurred ${
-              user_res.statusCode
-                ? `with status Code: ${user_res.statusCode} while fetching user data.`
-                : ''
-            }`
-          : !jwt_res.data
-          ? 'Uncaught error'
-          : '',
-        // Provide any utility or variant background style:
+        message: jwt_res.errorMessage
+          ? `${jwt_res.errorMessage}`
+          : 'An uncaught error occurred while fetching user data',
         background: 'variant-filled-error'
       });
+      processing = false;
       return;
     }
+    processing = false;
     user.set(user_res.data);
     navigateTo('/my/dashboard');
   };
   const socialLogin = async (provider: string) => {
     if (processing) return;
     processing = true;
-    const { statusCode, networkError, data } = await oAuthLogin(provider);
+    const oauth_jwt_res = await oAuthLogin(provider);
     processing = false;
-    if (networkError || !data?.authorization_url) {
+    if (oauth_jwt_res.errorMessage || !oauth_jwt_res.data?.authorization_url) {
       toastStore.trigger({
-        message: networkError
-          ? `Network error occurred ${
-              statusCode ? `with status Code: ${statusCode} while creating JWT tokens.` : ''
-            }`
-          : !data
-          ? 'Uncaught error'
-          : '',
-        // Provide any utility or variant background style:
+        message: oauth_jwt_res.errorMessage
+          ? `${oauth_jwt_res.errorMessage} while creating JWT tokens.}`
+          : 'An uncaught error occurred while signing in',
         background: 'variant-filled-error'
       });
       return;
     }
-    goto(data.authorization_url);
+    goto(oauth_jwt_res.data.authorization_url);
   };
 </script>
 
@@ -122,11 +147,7 @@
 				{i(display_pw ? 'auth.hide' : 'auth.view')}
 			</button> -->
     </label>
-    <button
-      type="submit"
-      disabled={processing}
-      class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
-    >
+    <button type="submit" disabled={processing} class="btn variant-filled-surface w-full">
       {#if processing}
         <ProgressRadial
           value={undefined}
@@ -167,7 +188,7 @@
     <button
       type="button"
       disabled={processing}
-      class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
+      class="btn variant-filled-surface w-full"
       on:click={() => socialLogin('google-oauth2')}
     >
       {#if processing}
@@ -192,7 +213,7 @@
     <button
       type="button"
       disabled={processing}
-      class="btn bg-slate-400 dark:bg-slate-500 flex w-full justify-center items-center"
+      class="btn variant-filled-surface w-full"
       on:click={() => socialLogin('github')}
     >
       {#if processing}
