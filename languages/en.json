@@ -5,12 +5,19 @@
   "pages": {
     "dashboard": "Dashboard"
   },
+  "misc": {
+    "confirm": "Confirm"
+  },
   "auth": {
     "signin": "Sign in",
     "signup": "Sign up",
     "signout": "Sign out",
+    "go_check_mail": "Please check email to verify account",
     "hide": "Hide",
     "view": "View",
-    "password": "Password"
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "first_name": "First name",
+    "last_name": "Last name"
   }
 }

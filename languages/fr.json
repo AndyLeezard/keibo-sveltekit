@@ -5,12 +5,19 @@
   "pages": {
     "dashboard": "Tableau de bord"
   },
+  "misc": {
+    "confirm": "Confirmer"
+  },
   "auth": {
     "signin": "Se connecter",
     "signup": "Inscrivez-vous ici",
     "signout": "Se déconnecter",
+    "go_check_mail": "Un e-mail vous a été envoyé pour activer votre compte",
     "hide": "Cacher",
     "view": "Voir",
-    "password": "Mot de passe"
+    "password": "Mot de passe",
+    "password_confirm": "Confirmation du mot de passe",
+    "first_name": "Prénom",
+    "last_name": "Nom"
   }
 }

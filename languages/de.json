@@ -5,12 +5,19 @@
   "pages": {
     "dashboard": "Armaturenbrett"
   },
+  "misc": {
+    "confirm": "Bestätigen"
+  },
   "auth": {
     "signin": "Anmelden",
     "signup": "Melden Sie sich an",
     "signout": "Abmelden",
+    "go_check_mail": "Bitte überprüfen Sie die e-mails, um das Konto zu überprüfen",
     "hide": "Verstecken",
     "view": "Sicht",
-    "password": "Passwort"
+    "password": "Passwort",
+    "password_confirm": "Bestätige das Passwort",
+    "first_name": "Vorname",
+    "last_name": "Nachname"
   }
 }

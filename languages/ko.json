@@ -5,12 +5,19 @@
   "pages": {
     "dashboard": "대시보드"
   },
+  "misc": {
+    "confirm": "확인"
+  },
   "auth": {
     "signin": "로그인",
     "signup": "회원가입",
     "signout": "로그아웃",
+    "go_check_mail": "인증 이메일을 확인하세요",
     "hide": "숨기기",
     "view": "보기",
-    "password": "비번"
+    "password": "비번",
+    "password_confirm": "비번 재확인",
+    "first_name": "이름",
+    "last_name": "성"
   }
 }
