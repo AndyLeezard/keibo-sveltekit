@@ -59,8 +59,8 @@ export const handleOAuthRedirection = async (args: {
     payload: undefined,
     config: {
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Cookie: `state=${state}; code=${code};`
       }
     }
   });

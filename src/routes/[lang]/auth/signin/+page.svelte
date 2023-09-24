@@ -118,7 +118,8 @@
       });
       return;
     }
-    goto(oauth_jwt_res.data.authorization_url);
+    window.alert(oauth_jwt_res.data.authorization_url);
+    // goto(oauth_jwt_res.data.authorization_url);
   };
 </script>
 
