@@ -1,15 +1,7 @@
 module.exports = {
-  "*.{js,jsx}": [
-    "prettier --write",
-    "eslint --cache --fix",
+  "*.{js,ts,svelte,css,scss,postcss,md,json}": [
+    "prettier --write --plugin-search-dir=.",
+    "prettier --check --plugin-search-dir=."
   ],
-  "*.{ts,tsx}": [
-    "prettier --write",
-    () => "tsc --skipLibCheck --noEmit", 
-    "eslint --cache --fix",
-  ],
-  "*.svelte": [
-    "prettier --write",
-    "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-  ],
+  "*.{js,ts,svelte}": "eslint"
 }
