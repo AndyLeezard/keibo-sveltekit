@@ -53,12 +53,13 @@ export const handleOAuthRedirection = async (args: {
   code: string;
 }) => {
   const { provider, state, code } = args;
-  const uri = `/o/${provider}/?state=${state}&code=${code}`;
+  const uri = `/o/${provider}/?state=${encodeURIComponent(state)}&code=${encodeURIComponent(code)}`;
   return await basePostQuery<AuthResponseTokens>({
     uri,
     payload: undefined,
     config: {
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
