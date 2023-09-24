@@ -48,7 +48,8 @@
       state,
       code
     });
-    if (jwt_res.errorMessage || !jwt_res.data) {
+    if (!`${jwt_res.statusCode}`.startsWith('2') && jwt_res.errorMessage) {
+      error = jwt_res.errorMessage;
       toastStore.trigger({
         message: jwt_res.errorMessage
           ? `${jwt_res.errorMessage} while creating JWT tokens.`
@@ -60,6 +61,7 @@
     }
     const user_res = await getClientUser();
     if (user_res.errorMessage || !user_res.data) {
+      error = user_res.errorMessage;
       toastStore.trigger({
         message: jwt_res.errorMessage
           ? `${jwt_res.errorMessage} while fetching user data.`

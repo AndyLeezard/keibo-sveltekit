@@ -8,6 +8,25 @@ export const BASE_URL = `${PUBLIC_HOST}/api` as const;
 
 const BASE_CONFIG: AxiosRequestConfig<any> = { withCredentials: true };
 
+const constructErrorMessage = (data: any, fallback_error_message: string) => {
+  if (!isJSObject(data)) {
+    return fallback_error_message;
+  } else if (
+    Object.prototype.hasOwnProperty.call(data, 'detail') &&
+    typeof data.detail === 'string'
+  ) {
+    return data.detail;
+  } else if (
+    Object.prototype.hasOwnProperty.call(data, 'non_field_errors') &&
+    typeof data.non_field_errors === 'object' &&
+    Array.isArray(data.non_field_errors)
+  ) {
+    return data.non_field_errors.join(' ');
+  } else {
+    return fallback_error_message;
+  }
+};
+
 type AxiosRequestParamsBase = {
   uri: string;
   config?: AxiosRequestConfig<any> | undefined;
@@ -29,15 +48,8 @@ export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
     if (statusOK) {
       data = res.data;
     } else {
-      if (
-        isJSObject(data) &&
-        Object.prototype.hasOwnProperty.call(data, 'detail') &&
-        typeof (data as any).detail === 'string'
-      ) {
-        errorMessage = (data as any).detail;
-      } else {
-        errorMessage = `Network response was not ok with status ${statusCode} (${res.statusText})`;
-      }
+      const fallback_error_message = `Network response was not ok with status ${statusCode} (${res.statusText})`;
+      errorMessage = constructErrorMessage(data, fallback_error_message);
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -45,15 +57,7 @@ export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
         // data = error.response.data;
         statusCode = error.response.status;
         if (!errorMessage) {
-          if (
-            isJSObject(error.response.data) &&
-            Object.prototype.hasOwnProperty.call(error.response.data, 'detail') &&
-            typeof error.response.data.detail === 'string'
-          ) {
-            errorMessage = error.response.data.detail;
-          } else {
-            errorMessage = error.message;
-          }
+          errorMessage = constructErrorMessage(error.response.data, error.message);
         }
       }
     }
@@ -95,15 +99,8 @@ export const basePostQuery = async <T>(
     if (statusOK) {
       data = res.data;
     } else {
-      if (
-        isJSObject(data) &&
-        Object.prototype.hasOwnProperty.call(data, 'detail') &&
-        typeof (data as any).detail === 'string'
-      ) {
-        errorMessage = (data as any).detail;
-      } else {
-        errorMessage = `Network response was not ok with status ${statusCode} (${res.statusText})`;
-      }
+      const fallback_error_message = `Network response was not ok with status ${statusCode} (${res.statusText})`;
+      errorMessage = constructErrorMessage(data, fallback_error_message);
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -111,15 +108,7 @@ export const basePostQuery = async <T>(
         // data = error.response.data;
         statusCode = error.response.status;
         if (!errorMessage) {
-          if (
-            isJSObject(error.response.data) &&
-            Object.prototype.hasOwnProperty.call(error.response.data, 'detail') &&
-            typeof error.response.data.detail === 'string'
-          ) {
-            errorMessage = error.response.data.detail;
-          } else {
-            errorMessage = error.message;
-          }
+          errorMessage = constructErrorMessage(error.response.data, error.message);
         }
       }
     }
