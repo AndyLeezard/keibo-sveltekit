@@ -38,12 +38,13 @@
   };
 
   onMount(async () => {
-    /* if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) {
+    if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) {
       // Bot detected. Do not run auth check request.
       return;
-    } */
+    }
     // Human detected. Proceed with auth check request.
     if (!userHasJWT) {
+      console.log('NO JWT');
       user.set(null);
       return;
     }

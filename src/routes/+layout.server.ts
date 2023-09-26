@@ -19,9 +19,12 @@ function isProtectedUrl(pathname: string): boolean {
   }
   return false;
 }
+
 export function load({ cookies, url }) {
-  const access = cookies.get('access');
-  const refresh = cookies.get('refresh');
+  /** value means nothing, just the max age is synchronized with the real access token */
+  const access = cookies.get('access-meta');
+  /** value means nothing, just the max age is synchronized with the real access token */
+  const refresh = cookies.get('refresh-meta');
   const userHasJWT = Boolean(access) && Boolean(refresh);
   if (!userHasJWT && isProtectedUrl(url.pathname)) {
     throw redirect(307, '/lang');
