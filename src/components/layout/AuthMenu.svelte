@@ -8,6 +8,7 @@
   import type { PopupSettings } from '@skeletonlabs/skeleton';
   import { page } from '$app/stores';
   import { i } from '@inlang/sdk-js';
+  import { fetchGetQuery } from '$lib/node-fetch';
 
   let processing = false;
 
@@ -27,6 +28,10 @@
   const onLogOut = async () => {
     if (processing) return;
     processing = true;
+    await fetchGetQuery({
+      uri: '/base/api/signout',
+      noContentExpected: true
+    });
     const { statusCode, errorMessage } = await logout();
     processing = false;
     if (statusCode === 204) {

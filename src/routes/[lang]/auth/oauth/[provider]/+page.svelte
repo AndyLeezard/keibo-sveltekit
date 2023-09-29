@@ -8,6 +8,7 @@
   import { getClientUser, handleOAuthRedirection } from '$lib/derived/auth';
   import { getToastStore } from '@skeletonlabs/skeleton';
   import { navigateTo } from '$lib/routes';
+  import { fetchPostQuery } from '$lib/node-fetch.js';
   export let data;
   const toastStore = getToastStore();
   const providerMap = new Map<
@@ -49,24 +50,38 @@
       code
     });
     if (!`${jwt_res.statusCode}`.startsWith('2') && jwt_res.errorMessage) {
-      error = jwt_res.errorMessage;
+      error = jwt_res.errorMessage
+        ? `${jwt_res.errorMessage} while creating JWT tokens.`
+        : 'Uncaught error';
       toastStore.trigger({
-        message: jwt_res.errorMessage
-          ? `${jwt_res.errorMessage} while creating JWT tokens.`
-          : 'Uncaught error',
-        // Provide any utility or variant background style:
+        message: error,
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    // define access-meta and refresh-meta with obtained maxage
+    const jwt_meta_res = await fetchPostQuery<null>({
+      uri: '/lang/api/signin',
+      payload: jwt_res.data,
+      noContentExpected: true
+    });
+    if (jwt_meta_res.errorMessage) {
+      error = jwt_meta_res.errorMessage
+        ? jwt_meta_res.errorMessage
+        : 'An uncaught error occurred while signing in';
+      toastStore.trigger({
+        message: error,
         background: 'variant-filled-error'
       });
       return;
     }
     const user_res = await getClientUser();
     if (user_res.errorMessage || !user_res.data) {
-      error = user_res.errorMessage;
+      error = jwt_res.errorMessage
+        ? `${jwt_res.errorMessage} while fetching user data.`
+        : 'Uncaught error';
       toastStore.trigger({
-        message: jwt_res.errorMessage
-          ? `${jwt_res.errorMessage} while fetching user data.`
-          : 'Uncaught error',
-        // Provide any utility or variant background style:
+        message: error,
         background: 'variant-filled-error'
       });
       return;

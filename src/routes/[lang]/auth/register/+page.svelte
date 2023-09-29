@@ -20,7 +20,11 @@
   const register = async () => {
     if (processing) return;
     processing = true;
-    const { errorMessage, statusCode, data } = await registerUser({
+    const {
+      errorMessage,
+      statusCode: _statusCode,
+      data
+    } = await registerUser({
       first_name,
       last_name,
       email,

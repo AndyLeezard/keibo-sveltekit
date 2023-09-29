@@ -44,7 +44,6 @@
     }
     // Human detected. Proceed with auth check request.
     if (!userHasJWT) {
-      console.log('NO JWT');
       user.set(null);
       return;
     }

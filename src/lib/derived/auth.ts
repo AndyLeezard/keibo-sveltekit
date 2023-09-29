@@ -9,12 +9,9 @@ export const getClientUser = async () => {
   });
 };
 
-export type AuthAccessResponseToken = {
-  access: string;
-};
-
-export type AuthResponseTokens = AuthAccessResponseToken & {
-  refresh: string; // StringDecoder
+export type AuthTokenAges = {
+  access_max_age: number;
+  refresh_max_age: number;
 };
 
 /**
@@ -22,7 +19,7 @@ export type AuthResponseTokens = AuthAccessResponseToken & {
  */
 export const jwtCreate = async (payload: { email: string; password: string }) => {
   const uri = '/jwt/create/';
-  return await basePostQuery<AuthResponseTokens>({
+  return await basePostQuery<AuthTokenAges>({
     uri,
     payload
   });
@@ -54,7 +51,7 @@ export const handleOAuthRedirection = async (args: {
 }) => {
   const { provider, state, code } = args;
   const uri = `/o/${provider}/?state=${encodeURIComponent(state)}&code=${encodeURIComponent(code)}`;
-  return await basePostQuery<AuthResponseTokens>({
+  return await basePostQuery<AuthTokenAges>({
     uri,
     payload: undefined,
     config: {

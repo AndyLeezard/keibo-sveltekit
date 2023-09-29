@@ -9,6 +9,7 @@
   import { user } from '$stores/auth';
   import { oAuthLogin, jwtCreate, getClientUser, checkUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
+  import { fetchPostQuery } from '$lib/node-fetch.js';
   export let data;
   const { from_register, from_activation, from_reset_pw_request, from_confirm_pw_request } = data;
   const toastStore = getToastStore();
@@ -89,6 +90,22 @@
       processing = false;
       return;
     }
+    // define access-meta and refresh-meta with obtained maxage
+    const jwt_meta_res = await fetchPostQuery<null>({
+      uri: '/lang/api/signin',
+      payload: jwt_res.data,
+      noContentExpected: true
+    });
+    if (jwt_meta_res.errorMessage) {
+      toastStore.trigger({
+        message: jwt_meta_res.errorMessage
+          ? jwt_meta_res.errorMessage
+          : 'An uncaught error occurred while signing in',
+        background: 'variant-filled-error'
+      });
+      processing = false;
+      return;
+    }
     const user_res = await getClientUser();
     if (user_res.errorMessage || !user_res.data) {
       toastStore.trigger({
@@ -142,7 +159,13 @@
     </h2>
     <label class="label">
       <span>{t({ en: 'Email', ko: '메일 주소' })}</span>
-      <input bind:value={email} class="input" type="email" placeholder="example@keibo.app" />
+      <input
+        id="input-email"
+        bind:value={email}
+        class="input"
+        type="email"
+        placeholder="example@keibo.app"
+      />
     </label>
     <label class="label relative">
       <div class="flex justify-between">
@@ -152,7 +175,13 @@
         </Link>
       </div>
       <!-- type={display_pw ? 'text' : 'password'} -->
-      <input bind:value={password} class="input pr-[72px]" type="password" placeholder="********" />
+      <input
+        id="input-pw"
+        bind:value={password}
+        class="input pr-[72px]"
+        type="password"
+        placeholder="********"
+      />
       <!-- <button type="button" class="btn pt-0 pb-0 pl-2 pr-2 w-[56px] text-sm variant-filled-surface absolute right-3 top-1/2" on:click={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
