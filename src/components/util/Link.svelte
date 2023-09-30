@@ -33,6 +33,7 @@
     }`}
     target={asNewTab ? '_blank' : '_self'}
     rel={asNewTab ? 'noopener noreferrer' : undefined}
+    data-sveltekit-preload-data={asNewTab ? undefined : 'hover'}
   >
     <slot />
   </a>
