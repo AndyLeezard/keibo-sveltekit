@@ -10,7 +10,7 @@
     type ModalComponent
   } from '@skeletonlabs/skeleton';
   import Footer from '$components/layout/Footer.svelte';
-  import AuthMenu from '$components/layout/AuthMenu.svelte';
+  import AuthMenu from '$components/layout/authmenu/AuthMenu.svelte';
   import { user } from '$stores/auth';
   import { initializeStores, getToastStore, storePopup } from '@skeletonlabs/skeleton';
   import Lang from '$components/layout/Lang.svelte';
@@ -85,7 +85,9 @@
       </svelte:fragment>
       <svelte:fragment slot="trail">
         <AuthMenu />
-        <LightSwitch />
+        <span class="crumb-separator select-none" aria-hidden>|</span>
+        <LightSwitch width="w-12" />
+        <span class="crumb-separator select-none" aria-hidden>|</span>
         <Lang />
       </svelte:fragment>
     </AppBar>

@@ -12,7 +12,20 @@
 
 <div class="container h-full mx-auto flex justify-center items-center">
   <div class="space-y-10 text-center flex flex-col items-center">
-    <h2 class="h2">{i('home.welcome')}</h2>
+    <h1 class="h1">
+      <span
+        class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
+        >Welcome</span
+      >
+      <span
+        class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone"
+        >To</span
+      >
+      <span
+        class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
+        >Keibo</span
+      >
+    </h1>
     <!-- Animated Logo -->
     <figure>
       <section class="img-bg" />
