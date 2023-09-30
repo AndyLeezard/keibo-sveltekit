@@ -20,5 +20,5 @@
   type="button"
   on:click={() => open()}
 >
-  <img class="h-full" src={`/${language}.svg`} alt={language} />
+  <img class="h-full" src={`/flags/${language}.svg`} alt={language} />
 </button>

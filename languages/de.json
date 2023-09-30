@@ -3,7 +3,8 @@
     "welcome": "Willkommen bei Keibo"
   },
   "pages": {
-    "dashboard": "Armaturenbrett"
+    "dashboard": "Armaturenbrett",
+    "wallets": "Konten"
   },
   "misc": {
     "confirm": "Bestätigen"

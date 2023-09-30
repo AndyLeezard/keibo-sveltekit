@@ -16,7 +16,8 @@ const config = {
       // these are the aliases and paths to them
       $components: './src/components/*',
       // '$lib': './src/lib/*',
-      $stores: './src/stores/*'
+      $stores: './src/stores/*',
+      $screens: './src/screens/*'
       //'@utils': path.resolve('./src/lib/utils')
     },
     env: {

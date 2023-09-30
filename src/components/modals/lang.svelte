@@ -25,7 +25,7 @@
           modalStore.close();
         }}
       >
-        <img class="h-6 mr-1 rounded-md" src={`/${lang}.svg`} alt={lang} />
+        <img class="h-6 mr-1 rounded-md" src={`/flags/${lang}.svg`} alt={lang} />
         <span class="font-semibold"
           >{lang in displayLangRecord ? displayLangRecord[lang] : lang}</span
         >

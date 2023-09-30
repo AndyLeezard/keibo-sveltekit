@@ -70,10 +70,19 @@
   </button>
   <div class="card p-4 min-w-[128px]" data-popup="popupAvatar">
     <div class="grid grid-cols-1 gap-2">
+      <Link
+        role="button"
+        disabled={processing}
+        className="min-h-[42px] btn variant-filled-surface"
+        id="btn-dashboard"
+        href={'my/dashboard'}
+      >
+        {i('pages.dashboard')}
+      </Link>
       <button
         disabled={processing}
         id="btn-sign-out"
-        class="btn variant-filled-error"
+        class="min-h-[42px] btn variant-filled-error"
         on:click={() => onLogOut()}
       >
         {#if processing}

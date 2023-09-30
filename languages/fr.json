@@ -3,7 +3,8 @@
     "welcome": "Bienvenue à Keibo"
   },
   "pages": {
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "wallets": "Comptes"
   },
   "misc": {
     "confirm": "Confirmer"

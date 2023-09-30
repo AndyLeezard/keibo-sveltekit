@@ -3,7 +3,8 @@
     "welcome": "Welcome to Keibo"
   },
   "pages": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "wallets": "Accounts"
   },
   "misc": {
     "confirm": "Confirm"

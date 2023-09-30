@@ -3,7 +3,8 @@
     "welcome": "Keibo에 오신걸 환영합니다"
   },
   "pages": {
-    "dashboard": "대시보드"
+    "dashboard": "대시보드",
+    "wallets": "계좌"
   },
   "misc": {
     "confirm": "확인"

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Keibo - dashboard</title>
+  <title>Keibo - security</title>
 </svelte:head>
 
 <UnderConstruction origin={'/my/dashboard'} />
