@@ -25,15 +25,21 @@ export function eraseCookie(name: string): void {
 }
 
 export function checkCookies(cookieNames: string[]): Record<string, boolean> {
-  return cookieNames.reduce((acc, cookieName) => {
-    acc[cookieName] = getCookie(cookieName) !== null;
-    return acc;
-  }, {} as Record<string, boolean>);
+  return cookieNames.reduce(
+    (acc, cookieName) => {
+      acc[cookieName] = getCookie(cookieName) !== null;
+      return acc;
+    },
+    {} as Record<string, boolean>
+  );
 }
 export function parseCookies(cookiesString: string): Record<string, string> {
-  return cookiesString.split('; ').reduce((acc, cookie) => {
-    const [name, value] = cookie.split('=');
-    acc[name] = value;
-    return acc;
-  }, {} as Record<string, string>);
+  return cookiesString.split('; ').reduce(
+    (acc, cookie) => {
+      const [name, value] = cookie.split('=');
+      acc[name] = value;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
 }

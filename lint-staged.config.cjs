@@ -1,5 +1,5 @@
 module.exports = {
-  '*.{js,ts,svelte,css,scss,postcss,md,json}': [
+  '*.{js,ts,svelte,css,postcss}': [
     'prettier --write --plugin-search-dir=.',
     'prettier --check --plugin-search-dir=.'
   ],
