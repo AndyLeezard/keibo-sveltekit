@@ -62,7 +62,10 @@
 >
   <Icon />
 </button>
-<div class="card p-2 variant-filled-surface translate-x-[-16px]" data-popup="popup-theme">
+<div
+  class="card p-2 variant-filled-surface translate-x-[-16px] translate-y-[8px]"
+  data-popup="popup-theme"
+>
   <span class="text-sm whitespace-nowrap">{i('theme.toggle')}</span>
   <div class="arrow variant-filled-surface" />
 </div>

@@ -34,7 +34,10 @@
   >
   <!-- <img class="h-full" src={`/flags/${language}.svg`} alt={language} /> -->
 </button>
-<div class="card p-2 variant-filled-surface translate-x-[-16px]" data-popup="popup-lang">
+<div
+  class="card p-2 variant-filled-surface translate-x-[-16px] translate-y-[8px]"
+  data-popup="popup-lang"
+>
   <div class="inline-flex items-center gap-2">
     <div class="overflow-hidden h-5 w-6 rounded-md">
       <img class="h-full w-full" src={`/flags/${language}.svg`} alt={language} />

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Link } from '$components/util';
   import { logout } from '$lib/derived/auth';
   import { fetchGetQuery } from '$lib/node-fetch';
   import { navigateTo, routeIsSelected } from '$lib/routes';
@@ -11,6 +10,7 @@
   import { page } from '$app/stores';
   import clsx from 'clsx';
   import NavIndicator from './NavIndicator.svelte';
+  import PopupLink from './PopupLink.svelte';
   $: isSelected = routeIsSelected($page.url.pathname, 'my', 2);
 
   let processing = false;
@@ -75,7 +75,7 @@
   {/if}
 </button>
 <div
-  class="card bg-surface-200 dark:bg-surface-700 p-2 min-w-[128px] max-w-[192px] translate-x-[-16px]"
+  class="card bg-surface-200 dark:bg-surface-700 p-2 min-w-[128px] max-w-[192px] translate-x-[-16px] translate-y-[8px]"
   data-popup="popup-avatar"
 >
   <div class="flex-col mb-2">
@@ -97,15 +97,9 @@
     <span class="text-center text-sm opacity-90">{$user ? $user.email : ''}</span>
   </div>
   <div class="grid grid-cols-1 gap-2">
-    <Link
-      role="button"
-      className="btn btn-sm bg-surface-300 dark:bg-surface-500"
-      disabled={processing}
-      id="btn-dashboard"
-      href={'my/profile'}
-    >
+    <PopupLink href={'my/profile'}>
       {i('pages.profile')}
-    </Link>
+    </PopupLink>
     <button
       disabled={processing}
       id="btn-sign-out"
