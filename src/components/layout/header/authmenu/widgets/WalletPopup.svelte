@@ -4,6 +4,12 @@
   import { popup } from '@skeletonlabs/skeleton';
   import type { PopupSettings } from '@skeletonlabs/skeleton';
   import Fa6SolidWallet from 'virtual:icons/fa6-solid/wallet';
+  import { page } from '$app/stores';
+  import { routeIsSelected } from '$lib/routes';
+  import NavIndicator from './NavIndicator.svelte';
+  import clsx from 'clsx';
+
+  $: isSelected = routeIsSelected($page.url.pathname, 'wallet', 2);
 
   const popupClick: PopupSettings = {
     event: 'click',
@@ -15,10 +21,16 @@
 
 <button
   type="button"
-  class="btn-icon m-0 p-0 w-8 h-8 text-surface-700 dark:text-sky-100"
+  class={clsx('relative btn-icon m-0 p-0 w-8 h-8', {
+    ['text-surface-700 dark:text-sky-100']: !isSelected,
+    ['text-primary-600 dark:text-primary-500']: isSelected
+  })}
   use:popup={popupClick}
 >
   <Fa6SolidWallet class="w-8 h-8" />
+  {#if isSelected}
+    <NavIndicator />
+  {/if}
 </button>
 <!-- <Link
   className="btn-icon p-0 m-0 text-surface-700 dark:text-surface-100"

@@ -2,11 +2,10 @@
   import { Link } from '$components/util';
   import { page } from '$app/stores';
   import { clsx } from 'clsx';
+  import { routeIsSelected } from '$lib/routes';
   export let href: string;
   export let className: string | undefined = undefined;
-  const split = href.split('/');
-  const last = split.at(-1) ?? '';
-  const isSelected = $page.url.pathname.endsWith(last);
+  const isSelected = routeIsSelected($page.url.pathname, href);
 </script>
 
 <Link

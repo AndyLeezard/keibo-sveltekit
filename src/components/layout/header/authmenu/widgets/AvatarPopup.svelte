@@ -2,12 +2,17 @@
   import { Link } from '$components/util';
   import { logout } from '$lib/derived/auth';
   import { fetchGetQuery } from '$lib/node-fetch';
-  import { navigateTo } from '$lib/routes';
+  import { navigateTo, routeIsSelected } from '$lib/routes';
   import { user } from '$stores/auth';
   import { inversedNameOrder, t } from '$lib/intl';
   import { i } from '@inlang/sdk-js';
   import { Avatar, popup, getToastStore, ProgressBar } from '@skeletonlabs/skeleton';
   import type { PopupSettings } from '@skeletonlabs/skeleton';
+  import { page } from '$app/stores';
+  import clsx from 'clsx';
+  import NavIndicator from './NavIndicator.svelte';
+  $: isSelected = routeIsSelected($page.url.pathname, 'my', 2);
+
   let processing = false;
 
   const popupClick: PopupSettings = {
@@ -53,14 +58,21 @@
   };
 </script>
 
-<button type="button" class="btn m-0 p-0" use:popup={popupClick}>
+<button type="button" class={clsx('relative btn flex flex-col m-0 p-0')} use:popup={popupClick}>
   <Avatar
     role="button"
     initials={initial ? initial : 'Guest'}
     rounded="rounded-md"
     width="w-8"
-    background="bg-primary-500 dark:bg-primary-600"
+    background={clsx({
+      ['bg-primary-500 dark:bg-primary-600']: isSelected,
+      ['bg-surface-700 dark:bg-sky-100']: !isSelected
+    })}
+    fill="fill-sky-100 dark:fill-surface-700"
   />
+  {#if isSelected}
+    <NavIndicator />
+  {/if}
 </button>
 <div
   class="card bg-surface-200 dark:bg-surface-700 p-2 min-w-[128px] max-w-[192px] translate-x-[-16px]"
