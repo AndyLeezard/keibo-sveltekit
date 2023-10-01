@@ -2,6 +2,9 @@
 <svelte:head>
   <title>Keibo - new wallet</title>
 </svelte:head>
-<div class="container h-full mx-auto flex justify-center items-center">
-  <code class="code">TODO : New wallet</code>
+<div class="flex flex-1 flex-col">
+  <div class="inline-flex p-2">
+    <h1 class="text-3xl font-bold">New wallet</h1>
+  </div>
+  <code class="code m-auto">TODO : New wallet</code>
 </div>
