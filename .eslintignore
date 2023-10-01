@@ -13,3 +13,6 @@ package-lock.json
 yarn.lock
 postcss.config.cjs
 backups/
+
+# Using svelte header html injection
+Theme.svelte

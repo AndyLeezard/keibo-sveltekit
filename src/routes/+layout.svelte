@@ -1,25 +1,19 @@
 <script lang="ts">
   import '../app.postcss';
   import { onMount } from 'svelte';
-  import {
-    AppShell,
-    AppBar,
-    LightSwitch,
-    Modal,
-    Toast,
-    type ModalComponent
-  } from '@skeletonlabs/skeleton';
+  import { AppShell, AppBar, Modal, Toast, type ModalComponent } from '@skeletonlabs/skeleton';
   import Footer from '$components/layout/Footer.svelte';
-  import AuthMenu from '$components/layout/authmenu/AuthMenu.svelte';
+  import { AuthMenu } from '$components/layout/header/authmenu';
   import { user } from '$stores/auth';
   import { initializeStores, getToastStore, storePopup } from '@skeletonlabs/skeleton';
-  import Lang from '$components/layout/Lang.svelte';
+  import Lang from '$components/layout/header/Lang.svelte';
   import MDLang from '$components/modals/lang.svelte';
   import '@fontsource/fira-sans';
   import '@fontsource/gamja-flower';
   import { Link } from '$components/util';
   import { getClientUser } from '$lib/derived/auth';
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+  import Theme from '$components/layout/header/theme/Theme.svelte';
   export let data;
   const { userHasJWT } = data;
 
@@ -85,10 +79,9 @@
       </svelte:fragment>
       <svelte:fragment slot="trail">
         <AuthMenu />
-        <span class="crumb-separator select-none" aria-hidden>|</span>
-        <LightSwitch width="w-12" />
-        <span class="crumb-separator select-none" aria-hidden>|</span>
         <Lang />
+        <span class="crumb-separator select-none" aria-hidden>|</span>
+        <Theme />
       </svelte:fragment>
     </AppBar>
   </svelte:fragment>

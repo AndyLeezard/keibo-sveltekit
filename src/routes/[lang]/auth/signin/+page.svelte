@@ -5,7 +5,7 @@
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl.js';
   import { user } from '$stores/auth';
   import { oAuthLogin, jwtCreate, getClientUser, checkUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
@@ -119,7 +119,7 @@
     }
     processing = false;
     user.set(user_res.data);
-    navigateTo('/my/dashboard');
+    navigateTo('/my/profile');
   };
   const socialLogin = async (provider: string) => {
     if (processing) return;
@@ -143,7 +143,7 @@
 <svelte:head>
   <title>Keibo - authentification</title>
 </svelte:head>
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <form
     use:focusTrap={isFocused}
     class="card variant-form-material p-4 w-[400px] text-token space-y-4 border-b-0"

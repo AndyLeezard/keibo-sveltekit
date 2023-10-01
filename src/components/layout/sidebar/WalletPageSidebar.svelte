@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl';
   import { Sidebar, SidebarItem } from './core';
   import Fa6SolidCircleUser from 'virtual:icons/fa6-solid/circle-user';
 </script>

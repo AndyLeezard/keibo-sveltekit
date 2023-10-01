@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ProgressRadial, focusTrap, getToastStore } from '@skeletonlabs/skeleton';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl';
   import { checkUser, requestPasswordReset } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
   import { i } from '@inlang/sdk-js';
@@ -53,7 +53,7 @@
 <svelte:head>
   <title>Keibo - password recovery</title>
 </svelte:head>
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <form
     use:focusTrap={isFocused}
     class="card variant-form-material p-4 w-[400px] text-token space-y-4 border-b-0"

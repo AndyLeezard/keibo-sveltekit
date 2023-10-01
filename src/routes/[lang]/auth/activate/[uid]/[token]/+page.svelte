@@ -1,7 +1,7 @@
 <script lang="ts">
   import { activateAccount } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes.js';
-  import { t } from '$lib/trad.js';
+  import { t } from '$lib/intl.js';
   import { getToastStore } from '@skeletonlabs/skeleton';
   import { onMount } from 'svelte';
 
@@ -25,7 +25,7 @@
   });
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <div class="card p-4 flex flex-col items-center gap-2 animate-pulse">
     {#if error}
       <span>

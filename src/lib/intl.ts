@@ -20,3 +20,18 @@ export const t = (dictionary: PDictionary | string | undefined): string => {
   }
   return dictionary[i18n.defaultLocale] as string;
 };
+
+/**
+ * Does the language say the last name first (ex: Korean and Japanese)?
+ *
+ * Default: `false`
+ */
+export const inversedNameOrder = () => {
+  switch (language) {
+    case 'ko':
+    case 'jp':
+      return true;
+    default:
+      return false;
+  }
+};

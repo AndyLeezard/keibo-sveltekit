@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Link } from '$components/util';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl';
   import Fa6Discord from 'virtual:icons/fa6-brands/discord';
   export let origin: string;
 </script>

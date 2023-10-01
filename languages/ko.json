@@ -4,10 +4,19 @@
   },
   "pages": {
     "dashboard": "대시보드",
-    "wallets": "계좌"
+    "profile": "프로필",
+    "wallet": {
+      "self": "계좌",
+      "overview": "전체"
+    }
   },
   "misc": {
     "confirm": "확인"
+  },
+  "theme": {
+    "toggle": "테마 변경하기",
+    "light": "라이트모드",
+    "dark": "다크모드"
   },
   "auth": {
     "signin": "로그인",

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl.js';
   import { page } from '$app/stores';
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
@@ -87,11 +87,11 @@
       return;
     }
     user.set(user_res.data);
-    navigateTo('/my/dashboard');
+    navigateTo('/my/profile');
   });
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <div class="card p-4 flex flex-col items-center gap-2 animate-pulse">
     {#if !providerMap.has(data.provider)}
       <span>

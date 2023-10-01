@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resendVerificationEmail } from '$lib/derived/auth.js';
   import { navigateTo } from '$lib/routes.js';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl.js';
   import { i } from '@inlang/sdk-js';
   import { ProgressRadial, focusTrap, getToastStore } from '@skeletonlabs/skeleton';
   export let data;
@@ -31,7 +31,7 @@
   };
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <form
     use:focusTrap={isFocused}
     class="card p-4 w-[400px] text-token space-y-4"

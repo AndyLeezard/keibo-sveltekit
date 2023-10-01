@@ -6,4 +6,4 @@
   <title>Keibo - dashboard</title>
 </svelte:head>
 
-<UnderConstruction origin={'/my/dashboard'} />
+<UnderConstruction origin={'/my/profile'} />

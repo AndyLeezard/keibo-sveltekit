@@ -4,10 +4,20 @@
   },
   "pages": {
     "dashboard": "Dashboard",
-    "wallets": "Accounts"
+    "profile": "Profile",
+    "wallets": "Accounts",
+    "wallet": {
+      "self": "Accounts",
+      "overview": "Overview"
+    }
   },
   "misc": {
     "confirm": "Confirm"
+  },
+  "theme": {
+    "toggle": "Change theme",
+    "light": "Light mode",
+    "dark": "Dark mode"
   },
   "auth": {
     "signin": "Sign in",

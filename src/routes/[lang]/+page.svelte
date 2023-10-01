@@ -2,7 +2,7 @@
   import { i } from '@inlang/sdk-js';
   import { user } from '$stores/auth';
   import { Link } from '$components/util';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl';
 </script>
 
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->

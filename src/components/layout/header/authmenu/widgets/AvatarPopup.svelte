@@ -4,7 +4,7 @@
   import { fetchGetQuery } from '$lib/node-fetch';
   import { navigateTo } from '$lib/routes';
   import { user } from '$stores/auth';
-  import { t } from '$lib/trad';
+  import { inversedNameOrder, t } from '$lib/intl';
   import { i } from '@inlang/sdk-js';
   import { Avatar, popup, getToastStore, ProgressBar } from '@skeletonlabs/skeleton';
   import type { PopupSettings } from '@skeletonlabs/skeleton';
@@ -12,7 +12,7 @@
 
   const popupClick: PopupSettings = {
     event: 'click',
-    target: 'popupAvatar',
+    target: 'popup-avatar',
     placement: 'bottom',
     closeQuery: '#btn-sign-out'
   };
@@ -53,7 +53,7 @@
   };
 </script>
 
-<button type="button" id="main-avatar" class="btn m-0 p-0" use:popup={popupClick}>
+<button type="button" class="btn m-0 p-0" use:popup={popupClick}>
   <Avatar
     role="button"
     initials={initial ? initial : 'Guest'}
@@ -64,16 +64,23 @@
 </button>
 <div
   class="card bg-surface-200 dark:bg-surface-700 p-2 min-w-[128px] max-w-[192px] translate-x-[-16px]"
-  data-popup="popupAvatar"
+  data-popup="popup-avatar"
 >
   <div class="flex-col mb-2">
-    <span class="text-center"
+    <!-- <span class="text-center"
       >{t({
         en: 'Hello, ',
         fr: 'Bonjour,',
         ko: '안녕하세요, ',
         de: 'Hallo, '
       })}{$user ? $user.first_name : ''}!</span
+    > -->
+    <span
+      >{$user
+        ? inversedNameOrder()
+          ? `${$user.last_name} ${$user.first_name}`
+          : `${$user.first_name} ${$user.last_name}`
+        : ''}</span
     >
     <span class="text-center text-sm opacity-90">{$user ? $user.email : ''}</span>
   </div>
@@ -83,9 +90,9 @@
       className="btn btn-sm bg-surface-300 dark:bg-surface-500"
       disabled={processing}
       id="btn-dashboard"
-      href={'my/dashboard'}
+      href={'my/profile'}
     >
-      {i('pages.dashboard')}
+      {i('pages.profile')}
     </Link>
     <button
       disabled={processing}

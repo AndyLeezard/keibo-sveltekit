@@ -4,10 +4,20 @@
   },
   "pages": {
     "dashboard": "Tableau de bord",
-    "wallets": "Comptes"
+    "profile": "Profil",
+    "wallets": "Comptes",
+    "wallet": {
+      "self": "Comptes",
+      "overview": "Aperçu"
+    }
   },
   "misc": {
     "confirm": "Confirmer"
+  },
+  "theme": {
+    "toggle": "Changer de thème",
+    "light": "Thème clair",
+    "dark": "Thème sombre"
   },
   "auth": {
     "signin": "Se connecter",

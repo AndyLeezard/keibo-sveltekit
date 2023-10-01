@@ -4,10 +4,20 @@
   },
   "pages": {
     "dashboard": "Armaturenbrett",
-    "wallets": "Konten"
+    "profile": "Profil",
+    "wallets": "Konten",
+    "wallet": {
+      "self": "Konten",
+      "overview": "Überblick"
+    }
   },
   "misc": {
     "confirm": "Bestätigen"
+  },
+  "theme": {
+    "toggle": "Thema ändern",
+    "light": "Leichtes Thema",
+    "dark": "Dunkles Thema"
   },
   "auth": {
     "signin": "Anmelden",

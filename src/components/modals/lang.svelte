@@ -1,7 +1,7 @@
 <script lang="ts">
-  // import { setCookie } from '$lib/cookie';
-  import { languages, switchLanguage } from '@inlang/sdk-js';
+  import { language, languages, switchLanguage } from '@inlang/sdk-js';
   import { getModalStore } from '@skeletonlabs/skeleton';
+  import clsx from 'clsx';
 
   const modalStore = getModalStore();
 
@@ -18,7 +18,10 @@
     {#each languages as lang}
       <button
         type="button"
-        class="btn variant-filled w-[164px] mr-auto"
+        class={clsx(
+          'btn variant-filled w-[164px] mr-auto p-1 border-4',
+          language === lang ? 'border-green-500' : 'border-transparent'
+        )}
         on:click={() => {
           // setCookie("language", lang)
           switchLanguage(lang);

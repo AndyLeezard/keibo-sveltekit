@@ -4,7 +4,7 @@
   import Google from 'virtual:icons/devicon/google';
   import Github from 'virtual:icons/devicon/github';
   import { Link } from '$components/util';
-  import { t } from '$lib/trad';
+  import { t } from '$lib/intl';
   import { oAuthLogin, registerUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
   import { goto } from '$app/navigation';
@@ -64,7 +64,7 @@
 <svelte:head>
   <title>Keibo - register</title>
 </svelte:head>
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full m-auto flex justify-center items-center">
   <form
     use:focusTrap={isFocused}
     class="card p-4 w-[400px] text-token space-y-4"
@@ -188,7 +188,7 @@
         </span>
       {:else}
         <Link
-          href="/auth/register"
+          href="/auth/signin"
           className="font-bold leading-6 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
         >
           {i('auth.signin')}
