@@ -1,6 +1,6 @@
 <script lang="ts">
   import X from 'virtual:icons/simple-icons/x';
-  import LinkedIn from 'virtual:icons/devicon/linkedin';
+  import LinkedIn from 'virtual:icons/fa6-brands/linkedin';
   import Github from 'virtual:icons/jam/github';
   import { Link } from '$components/util';
   export let discreet = false;
