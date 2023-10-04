@@ -1,4 +1,5 @@
 declare global {
+  type EmptyObject = Record<PropertyKey, never>;
   type Optional<T> = T | undefined;
   type ValueOf<T> = T[keyof T];
   type PartiallyOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
