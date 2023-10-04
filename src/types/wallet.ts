@@ -1,4 +1,10 @@
 declare global {
+  type TWalletConstructorBase = {
+    id: AssetCategory;
+    display_name: string;
+    description?: string;
+    image?: string;
+  };
   type AssetCategory = 'cash' | 'equity' | 'crypto' | 'fund' | 'other';
   /** Core */
   type FiatCurrency =
@@ -51,5 +57,12 @@ declare global {
 
     val_usd?: number;
   };
+
+  type TWalletCategoryConstructor = TWalletConstructorBase;
+  type TWalletAssetConstructor = TWalletConstructorBase & {
+    symbol: string;
+    quantity: number;
+  };
+  type TWalletProviderConstructor = TWalletConstructorBase;
 }
 export type module = unknown;

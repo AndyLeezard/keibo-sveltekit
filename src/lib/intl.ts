@@ -21,6 +21,19 @@ export const t = (dictionary: PDictionary | string | undefined): string => {
   return dictionary[i18n.defaultLocale] as string;
 };
 
+/** Serverside version of `t` */
+export const st = (
+  lang: keyof PDictionary,
+  dictionary: PDictionary | string | undefined
+): string => {
+  if (!dictionary) return '';
+  if (typeof dictionary === 'string') return dictionary;
+  if (Object.prototype.hasOwnProperty.call(dictionary, lang)) {
+    return dictionary[lang as keyof PDictionary] as string;
+  }
+  return dictionary[i18n.defaultLocale] as string;
+};
+
 /**
  * Does the language say the last name first (ex: Korean and Japanese)?
  *
