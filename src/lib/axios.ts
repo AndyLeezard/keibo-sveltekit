@@ -2,6 +2,7 @@
 import { PUBLIC_HOST } from '$env/static/public';
 import { isJSObject } from './ts-utils';
 import type { AxiosRequestConfig } from 'axios';
+import { language } from '@inlang/sdk-js';
 import axios from 'axios';
 
 export const BASE_URL = `${PUBLIC_HOST}/api` as const;
@@ -29,12 +30,15 @@ const constructErrorMessage = (data: any, fallback_error_message: string) => {
 
 type AxiosRequestParamsBase = {
   uri: string;
+  server?: 'sveltekit' | 'django';
   config?: AxiosRequestConfig<any> | undefined;
 };
 
 export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
-  const { uri, config } = args;
-  const getUri = `${BASE_URL}${uri.startsWith('/') ? uri : `/${uri}`}`;
+  const { uri, config, server = 'django' } = args;
+  const pure_uri = `${uri.startsWith('/') ? uri : `/${uri}`}`;
+  const getUri = server === 'django' ? `${BASE_URL}${pure_uri}` : `/${language}${pure_uri}`;
+  console.log(getUri);
   let data: T | undefined = undefined;
   let errorMessage = '';
   let statusCode = 400;
@@ -76,8 +80,9 @@ export const basePostQuery = async <T>(
     payload: any;
   }
 ) => {
-  const { uri, payload, config, useFormData = false } = args;
-  const postUri = `${BASE_URL}${uri.startsWith('/') ? uri : `/${uri}`}`;
+  const { uri, payload, config, useFormData = false, server = 'django' } = args;
+  const pure_uri = `${uri.startsWith('/') ? uri : `/${uri}`}`;
+  const postUri = server === 'django' ? `${BASE_URL}${pure_uri}` : `/${language}${pure_uri}`;
   let final_payload: any = payload;
   if (useFormData && isJSObject(payload)) {
     const formData = new FormData();
