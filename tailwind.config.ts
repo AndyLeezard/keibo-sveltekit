@@ -12,7 +12,21 @@ const config = {
     join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
   ],
   theme: {
-    extend: {}
+    extend: {
+      keyframes: {
+        wiggle: {
+          '0': { transform: 'translate(0, 0) rotate(0deg)' },
+          '20%': { transform: 'translate(-2px, 0) rotate(-2deg)' },
+          '30%': { transform: 'translate(3px, 0) rotate(3deg)' },
+          '50%': { transform: 'translate(-2px, 0) rotate(-2deg)' },
+          '60%': { transform: 'translate(1px, 0) rotate(1deg)' },
+          '100%': { transform: 'translate(0, 0) rotate(0)' }
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 1.75s cubic-bezier(.36,.07,.19,.97) infinite'
+      }
+    }
   },
   plugins: [
     forms,
