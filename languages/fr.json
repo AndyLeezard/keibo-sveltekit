@@ -12,7 +12,8 @@
     }
   },
   "misc": {
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "back": "Retour"
   },
   "theme": {
     "toggle": "Changer de thème",
@@ -33,5 +34,19 @@
     "first_name": "Prénom",
     "last_name": "Nom",
     "no_active_account": "Aucun compte actif trouvé avec les informations d'identification fournies"
+  },
+  "asset":{
+    "category": {
+      "placeholders": {
+        "cash": "BNP Paribas, Paypal, etc...",
+        "crypto": "Binance, Ledger, Coinbase, etc...",
+        "equity": "Boursorama, Etoro, etc...",
+        "fund": "Boursorama, Linxea, etc...",
+        "other": "Matières premières, métaux précieux, produits dérivés, etc..."
+      }
+    },
+    "provider": {
+      "label": "Nom de l'institution financière"
+    }
   }
 }

@@ -12,7 +12,8 @@
     }
   },
   "misc": {
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "back": "Back"
   },
   "theme": {
     "toggle": "Change theme",
@@ -33,5 +34,19 @@
     "first_name": "First name",
     "last_name": "Last name",
     "no_active_account": "No active account found with the given credentials"
+  },
+  "asset":{
+    "category": {
+      "placeholders": {
+        "cash": "JPMorgan Chase, Paypal, Coinbase, etc...",
+        "crypto": "Coinbase, Binance US, Ledger, etc...",
+        "equity": "Robinhood, Fidelity, etc...",
+        "fund": "Vanguard, Fidelity, etc...",
+        "other": "Commodities, Precious metal, Derivatives, etc..."
+      }
+    },
+    "provider": {
+      "label": "Name of the financial institution"
+    }
   }
 }
