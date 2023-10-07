@@ -2,23 +2,11 @@
   import { baseGetQuery } from '$lib/axios';
   import { onMount } from 'svelte';
   import { getToastStore } from '@skeletonlabs/skeleton';
-  import MdiCashMultiple from 'virtual:icons/mdi/cash-multiple';
-  import MdiGraphLine from 'virtual:icons/mdi/graph-line';
-  import MdiBitcoin from 'virtual:icons/mdi/bitcoin';
-  import MdiBank from 'virtual:icons/mdi/bank';
-  import MdiPiggyBank from 'virtual:icons/mdi/piggy-bank';
   import clsx from 'clsx';
   import { i } from '@inlang/sdk-js';
+  import { t } from '$lib/intl';
+  import { categoryIconMap } from './constants';
   export let onConfirm: (walletCategory: TWalletCategoryConstructor | null) => void;
-
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const categoryIconMap: Map<AssetCategory, any> = new Map([
-    ['cash', MdiCashMultiple],
-    ['equity', MdiGraphLine],
-    ['crypto', MdiBitcoin],
-    ['fund', MdiBank],
-    ['other', MdiPiggyBank]
-  ]);
 
   const toastStore = getToastStore();
   let current_category: TWalletCategoryConstructor | null = null;
@@ -51,6 +39,14 @@
 </script>
 
 <div class="max-w-[648px] m-auto flex flex-col variant-soft-surface p-2 rounded-lg gap-4">
+  <h1 class="text-center">
+    {t({
+      en: 'Tell us about your new wallet.',
+      fr: 'Parlez-nous de votre nouveau portefeuille.',
+      de: 'Erzählen Sie uns von Ihrer neuen Brieftasche.',
+      ko: '지갑의 종류에 대해 말해주세요.'
+    })}
+  </h1>
   <div class="flex flex-wrap gap-4">
     {#if categories}
       {#each categories as cat, _i}

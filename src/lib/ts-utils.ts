@@ -13,3 +13,19 @@ export function countNonNullValues<T extends Record<string, any>>(record: T): nu
   }
   return count;
 }
+export function toPositiveInt<T>(str: string | null, fallbackValue: T) {
+  if (str === null) return fallbackValue;
+  const num = parseInt(str, 10);
+  if (isNaN(num)) return fallbackValue;
+  return num;
+}
+export const normalizeStr = (str: string, unifyCase?: 'uppercase' | 'lowercase') => {
+  const res = str.normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+  if (unifyCase === 'uppercase') {
+    return res.toUpperCase();
+  }
+  if (unifyCase === 'lowercase') {
+    return res.toLowerCase();
+  }
+  return res;
+};

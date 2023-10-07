@@ -1,6 +1,5 @@
 declare global {
   type TWalletConstructorBase = {
-    id: AssetCategory;
     display_name: string;
     description?: string;
     image?: string;
@@ -58,11 +57,16 @@ declare global {
     val_usd?: number;
   };
 
-  type TWalletCategoryConstructor = TWalletConstructorBase;
+  type TWalletCategoryConstructor = TWalletConstructorBase & {
+    id: AssetCategory;
+  };
+  type TWalletProviderConstructor = TWalletConstructorBase & {
+    id: string;
+  };
   type TWalletAssetConstructor = TWalletConstructorBase & {
+    id: string;
     symbol: string;
     quantity: number;
   };
-  type TWalletProviderConstructor = TWalletConstructorBase;
 }
 export type module = unknown;
