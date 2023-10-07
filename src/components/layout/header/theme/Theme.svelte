@@ -16,7 +16,6 @@
     $modeCurrent = !$modeCurrent;
     setModeUserPrefers($modeCurrent);
     setModeCurrent($modeCurrent);
-    console.log($modeCurrent);
   };
 
   // A11y Input Handlers
