@@ -59,11 +59,11 @@
   </div>
   <!-- KEYWORD FORM -->
   <form
-    class="flex flex-col variant-soft-surface p-2 rounded-md"
+    class="flex flex-col variant-soft-surface pl-2 pr-2 pt-3 pb-3 rounded-md"
     on:submit|preventDefault={onSubmit}
   >
     <label class="label" for="input-wallet-name">{i('wallet.name.label')}</label>
-    <div class="w-full inline-flex items-center gap-2">
+    <div class="w-full inline-flex items-center gap-2 mb-4">
       <input
         id="input-wallet-name"
         bind:value={wallet_name}
@@ -78,8 +78,13 @@
         id="input-wallet-balance"
         bind:value={wallet_balance}
         class="input rounded-md"
-        type="text"
+        type="number"
       />
+      {#if asset?.symbol}
+        <span class="uppercase ml-1 mr-2 text-xl font-bold">
+          {asset.symbol}
+        </span>
+      {/if}
     </div>
   </form>
   <button
