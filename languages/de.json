@@ -15,6 +15,9 @@
     "confirm": "Bestätigen",
     "back": "Zurück"
   },
+  "error": {
+    "required_field": "Bitte fülle die notwendigen Felder aus"
+  },
   "theme": {
     "toggle": "Thema ändern",
     "light": "Leichtes Thema",
@@ -42,11 +45,30 @@
         "crypto": "Coinbase, Binance, Ledger, usw...",
         "equity": "Robinhood, Fidelity, usw...",
         "fund": "Vanguard, Fidelity, usw...",
-        "other": "Rohstoffe, Edelmetall, Derivate usw..."
+        "other": "Selbstgewahrsam, private Lagerung, usw..."
       }
+    },
+    "asset": {
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, usw...",
+        "crypto": "BTC, ETH, BNB, USDT usw...",
+        "equity": "AAPL, AMZN, NVDA, usw...",
+        "fund": "SPDR S&P 500 ETF, VTI,  usw...",
+        "other": "Rohstoffe, Edelmetall, Derivate usw..."
+      },
+      "label": "Name des Vermögenswerts (Währung)"
     },
     "provider": {
       "label": "Name des Finanzinstituts"
+    }
+  },
+  "wallet": {
+    "name": {
+      "label": "Name der Brieftasche *",
+      "placeholder": "Beispiel: Sekundärsparkonto"
+    },
+    "balance": {
+      "label": "Kontostand *"
     }
   }
 }

@@ -15,6 +15,9 @@
     "confirm": "Confirm",
     "back": "Back"
   },
+  "error": {
+    "required_field": "Please fill in the required fields"
+  },
   "theme": {
     "toggle": "Change theme",
     "light": "Light mode",
@@ -35,18 +38,37 @@
     "last_name": "Last name",
     "no_active_account": "No active account found with the given credentials"
   },
-  "asset":{
+  "asset": {
     "category": {
       "placeholders": {
         "cash": "JPMorgan Chase, Paypal, Coinbase, etc...",
         "crypto": "Coinbase, Binance US, Ledger, etc...",
         "equity": "Robinhood, Fidelity, etc...",
         "fund": "Vanguard, Fidelity, etc...",
-        "other": "Commodities, Precious metal, Derivatives, etc..."
+        "other": "Self custody, Private storage, etc..."
       }
+    },
+    "asset": {
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, etc...",
+        "crypto": "BTC, ETH, BNB, USDT etc...",
+        "equity": "AAPL, AMZN, NVDA, etc...",
+        "fund": "SPDR S&P 500 ETF, VTI,  etc...",
+        "other": "Commodities, Precious metal, Derivatives, etc..."
+      },
+      "label": "Name of the asset (currency)"
     },
     "provider": {
       "label": "Name of the financial institution"
+    }
+  },
+  "wallet": {
+    "name": {
+      "label": "Name of the wallet *",
+      "placeholder": "Ex: Secondary savings account"
+    },
+    "balance": {
+      "label": "Balance *"
     }
   }
 }

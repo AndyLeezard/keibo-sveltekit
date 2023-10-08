@@ -14,6 +14,9 @@
     "confirm": "확인",
     "back": "뒤로"
   },
+  "error":{
+    "required_field": "필수 항목을 입력해주세요"
+  },
   "theme": {
     "toggle": "테마 변경하기",
     "light": "라이트모드",
@@ -34,18 +37,37 @@
     "last_name": "성",
     "no_active_account": "해당 정보와 일치하는 활성 유저가 없습니다"
   },
-  "asset":{
+  "asset": {
     "category": {
       "placeholders": {
         "cash": "국민은행, 카카오뱅크 등",
         "crypto": "업비트, 레저, 바이낸스 등",
         "equity": "삼성증권, 미래에셋증권, 키움증권 등",
         "fund": "삼성증권, 하나은행, KB증권 등",
-        "other": "원자재, 귀금속, 희귀품, 파생상품 등"
+        "other": "자가 보관, 셀프 커스터디 등"
       }
+    },
+    "asset": {
+      "placeholders": {
+        "cash": "미국 달러, 유로, 원화, 엔화, 등",
+        "crypto": "비트코인, 이더리움, 등",
+        "equity": "삼성전자, SK 하이닉스, 카카오 등",
+        "fund": "KODEX 200 ETF, TIGER 200 ETF 등",
+        "other": "원자재, 파생상품, 옵션 등"
+      },
+      "label": "자산 및 화폐명"
     },
     "provider": {
       "label": "금융기관명"
+    }
+  },
+  "wallet": {
+    "name": {
+      "label": "지갑 이름 *",
+      "placeholder": "Ex: 저축 계좌"
+    },
+    "balance": {
+      "label": "보유량 *"
     }
   }
 }

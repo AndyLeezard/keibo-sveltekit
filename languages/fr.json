@@ -15,6 +15,9 @@
     "confirm": "Confirmer",
     "back": "Retour"
   },
+  "error": {
+    "required_field": "Veuillez remplir les champs obligatoires"
+  },
   "theme": {
     "toggle": "Changer de thème",
     "light": "Thème clair",
@@ -35,18 +38,37 @@
     "last_name": "Nom",
     "no_active_account": "Aucun compte actif trouvé avec les informations d'identification fournies"
   },
-  "asset":{
+  "asset": {
     "category": {
       "placeholders": {
         "cash": "BNP Paribas, Paypal, etc...",
         "crypto": "Binance, Ledger, Coinbase, etc...",
         "equity": "Boursorama, Etoro, etc...",
         "fund": "Boursorama, Linxea, etc...",
-        "other": "Matières premières, métaux précieux, produits dérivés, etc..."
+        "other": "Garde personnelle, Stockage privé, etc..."
       }
+    },
+    "asset": {
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, etc...",
+        "crypto": "BTC, ETH, BNB, USDT etc...",
+        "equity": "LVMH, ORANGE, AXA, etc...",
+        "fund": "Amundi CAC 40 ETF, BNP Paribas Aqua, etc...",
+        "other": "Matières premières, produits dérivés, etc..."
+      },
+      "label": "Nom de l'actif (devise)"
     },
     "provider": {
       "label": "Nom de l'institution financière"
+    }
+  },
+  "wallet": {
+    "name": {
+      "label": "Nom du portefeuille *",
+      "placeholder": "Ex: Compte d'épargne secondaire"
+    },
+    "balance": {
+      "label": "Montant des réserves *"
     }
   }
 }
