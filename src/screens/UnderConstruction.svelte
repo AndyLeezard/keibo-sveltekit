@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Link } from '$components/util';
   import { t } from '$lib/intl';
-  import Fa6Discord from 'virtual:icons/fa6-brands/discord';
+  import Icon from '@iconify/svelte';
   export let origin: string;
 </script>
 
@@ -47,7 +47,7 @@
         ko: '고객지원'
       })}{' '}
       <span aria-hidden="true">&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
-      <Fa6Discord class="w-8 h-8 text-[#5865f2]" />
+      <Icon icon="logos:discord-icon" class="w-8 h-8" />
     </Link>
   </div>
 </div>

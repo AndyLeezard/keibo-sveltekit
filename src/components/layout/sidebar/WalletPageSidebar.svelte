@@ -1,13 +1,12 @@
 <script lang="ts">
   import { t } from '$lib/intl';
   import { Sidebar, SidebarItem } from './core';
-  import Fa6SolidCircleUser from 'virtual:icons/fa6-solid/circle-user';
-  import Fa6Plus from 'virtual:icons/fa6-solid/plus';
+  import Icon from '@iconify/svelte';
 </script>
 
 <Sidebar>
   <SidebarItem href={'/wallet/overview'}>
-    <Fa6SolidCircleUser class="w-4 h-4" />
+    <Icon icon="fa6-solid:circle-user" class="w-4 h-4" />
     <span>
       {t({
         en: 'Overview',
@@ -18,7 +17,7 @@
     </span>
   </SidebarItem>
   <SidebarItem href={'/wallet/new'}>
-    <Fa6Plus size={16} />
+    <Icon icon="fa6-solid:plus" class="w-4 h-4" />
     <span>
       {t({
         en: 'New wallet',

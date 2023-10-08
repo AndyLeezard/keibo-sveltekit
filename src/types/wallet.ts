@@ -2,7 +2,10 @@ declare global {
   type TWalletConstructorBase = {
     display_name: string;
     description?: string;
+    /** Plain html image source */
     image?: string;
+    /** Iconify Icon address */
+    icon?: TIcon;
   };
   type AssetCategory = 'cash' | 'equity' | 'crypto' | 'fund' | 'other';
   /** Core */

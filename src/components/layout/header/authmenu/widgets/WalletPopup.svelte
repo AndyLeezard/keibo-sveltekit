@@ -2,7 +2,7 @@
   import { i } from '@inlang/sdk-js';
   import { popup } from '@skeletonlabs/skeleton';
   import type { PopupSettings } from '@skeletonlabs/skeleton';
-  import Fa6SolidWallet from 'virtual:icons/fa6-solid/wallet';
+  import Icon from '@iconify/svelte';
   import { page } from '$app/stores';
   import { routeIsSelected } from '$lib/routes';
   import NavIndicator from './NavIndicator.svelte';
@@ -27,7 +27,7 @@
   })}
   use:popup={popupClick}
 >
-  <Fa6SolidWallet class="w-8 h-8" />
+  <Icon icon="fa6-solid:wallet" class="w-8 h-8" />
   {#if isSelected}
     <NavIndicator />
   {/if}

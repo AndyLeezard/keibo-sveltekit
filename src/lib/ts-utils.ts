@@ -29,3 +29,4 @@ export const normalizeStr = (str: string, unifyCase?: 'uppercase' | 'lowercase')
   }
   return res;
 };
+export const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));

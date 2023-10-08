@@ -2,8 +2,7 @@
   import { i } from '@inlang/sdk-js';
   import { ProgressRadial, focusTrap, getToastStore } from '@skeletonlabs/skeleton';
   import { goto } from '$app/navigation';
-  import Google from 'virtual:icons/devicon/google';
-  import Github from 'virtual:icons/devicon/github';
+  import Icon from '@iconify/svelte';
   import { Link } from '$components/util';
   import { t } from '$lib/intl.js';
   import { user } from '$stores/auth';
@@ -242,7 +241,7 @@
           track="stroke-primary-500/30"
         />
       {:else}
-        <Google class="w-6 h-6" />
+        <Icon icon="devicon:google" class="w-6 h-6" />
         <span class="text-slate-800 dark:text-slate-50 font-semibold"
           >{t({
             en: 'With Google',
@@ -267,7 +266,7 @@
           track="stroke-primary-500/30"
         />
       {:else}
-        <Github class="w-6 h-6" />
+        <Icon icon="devicon:github" class="w-6 h-6" />
         <span class="text-slate-800 dark:text-slate-50 font-semibold"
           >{t({
             en: 'With Github',

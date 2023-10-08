@@ -1,8 +1,7 @@
 <script lang="ts">
   import { t } from '$lib/intl.js';
   import { page } from '$app/stores';
-  import Google from 'virtual:icons/devicon/google';
-  import Github from 'virtual:icons/devicon/github';
+  import Icon from '@iconify/svelte';
   import { onMount } from 'svelte';
   import { user } from '$stores/auth';
   import { getClientUser, handleOAuthRedirection } from '$lib/derived/auth';
@@ -103,9 +102,9 @@
         })}
       </span>
     {:else if $page.url.pathname.includes('google')}
-      <Google class="w-6 h-6" />
+      <Icon icon="devicon:google" class="w-6 h-6" />
     {:else if $page.url.pathname.includes('github')}
-      <Github class="w-6 h-6" />
+      <Icon icon="devicon:github" class="w-6 h-6" />
     {/if}
     {#if error}
       <span>

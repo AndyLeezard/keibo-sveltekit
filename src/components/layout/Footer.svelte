@@ -1,7 +1,5 @@
 <script lang="ts">
-  import X from 'virtual:icons/simple-icons/x';
-  import LinkedIn from 'virtual:icons/fa6-brands/linkedin';
-  import Github from 'virtual:icons/jam/github';
+  import Icon from '@iconify/svelte';
   import { Link } from '$components/util';
   export let discreet = false;
 </script>
@@ -18,19 +16,17 @@
         <ul class="flex items-center gap-4">
           <li>
             <Link asNewTab href="https://www.linkedin.com/in/andy-lee-4b913719a/">
-              <LinkedIn class="w-6 h-6" />
+              <Icon icon="devicon-plain:linkedin" class="w-6 h-6" />
             </Link>
           </li>
           <li>
             <Link asNewTab href="https://github.com/AndyLeezard">
-              <Github class="w-6 h-6" />
-              <!-- <FaGithubSquare size={22} /> -->
+              <Icon icon="jam:github" class="w-6 h-6" />
             </Link>
           </li>
           <li>
             <Link asNewTab href="https://twitter.com/andyleedev">
-              <X class="w-6 h-6" />
-              <!-- <AiFillTwitterCircle size={22} /> -->
+              <Icon icon="simple-icons:x" class="w-6 h-6" />
             </Link>
           </li>
         </ul>

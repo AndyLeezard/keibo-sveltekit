@@ -5,7 +5,8 @@
   import clsx from 'clsx';
   import { i } from '@inlang/sdk-js';
   import { t } from '$lib/intl';
-  import { categoryIconMap } from './constants';
+  import Icon from '@iconify/svelte';
+  import { FormShell } from './widgets';
   export let onConfirm: (walletCategory: TWalletCategoryConstructor | null) => void;
 
   const toastStore = getToastStore();
@@ -38,15 +39,14 @@
   });
 </script>
 
-<div class="max-w-[648px] m-auto flex flex-col variant-soft-surface p-2 rounded-lg gap-4">
-  <h1 class="text-center">
-    {t({
-      en: 'Tell us about your new wallet.',
-      fr: 'Parlez-nous de votre nouveau portefeuille.',
-      de: 'Erzählen Sie uns von Ihrer neuen Brieftasche.',
-      ko: '지갑의 종류에 대해 말해주세요.'
-    })}
-  </h1>
+<FormShell
+  instruction={t({
+    en: 'Tell us about your new wallet.',
+    fr: 'Parlez-nous de votre nouveau portefeuille.',
+    de: 'Erzählen Sie uns von Ihrer neuen Brieftasche.',
+    ko: '지갑의 종류에 대해 말해주세요.'
+  })}
+>
   <div class="flex flex-wrap gap-4">
     {#if categories}
       {#each categories as cat, _i}
@@ -68,8 +68,8 @@
             }
           }}
         >
-          {#if categoryIconMap.has(cat.id)}
-            <svelte:component this={categoryIconMap.get(cat.id)} class="w-16 h-16" />
+          {#if cat.icon}
+            <Icon icon={cat.icon.source} class={clsx('w-16 h-16', cat.icon.class)} />
           {/if}
           <label for={cat.id} class="mb-2 font-semibold">{cat.display_name}</label>
           {#if cat.description}
@@ -86,10 +86,10 @@
     {/if}
   </div>
   <button
-    class={clsx('btn self-center variant-filled-surface duration-100', {
+    class={clsx('btn self-center variant-filled-surface duration-100', 'min-w-[100px]', {
       ['animate-wiggle hover:animate-none']: Boolean(current_category)
     })}
     disabled={!current_category}
     on:click={confirm}>{i('misc.confirm')}</button
   >
-</div>
+</FormShell>

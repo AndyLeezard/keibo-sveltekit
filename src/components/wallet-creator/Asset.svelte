@@ -10,17 +10,18 @@
   import { generateNextArray, generatePreviousArray } from './utils';
   import { FormShell, ListItem, SelectionItem } from './widgets';
   export let category: TWalletCategoryConstructor | null;
-  export let onConfirm: (walletProvider: TWalletProviderConstructor | null) => void;
+  export let provider: TWalletProviderConstructor | null;
+  export let onConfirm: (walletAsset: TWalletAssetConstructor | null) => void;
   export let onBack: () => void;
 
   const toastStore = getToastStore();
-  let current_provider: TWalletProviderConstructor | null = null;
-  let providers: Array<TWalletProviderConstructor> | null = null;
+  let current_asset: TWalletAssetConstructor | null = null;
+  let assets: Array<TWalletAssetConstructor> | null = null;
 
   /** input state */
   let keyword: string = '';
   let current_page: number = 0;
-  let display_data: AwaitedArrayData<TWalletProviderConstructor> = {
+  let display_data: AwaitedArrayData<TWalletAssetConstructor> = {
     metadata: {
       page_ended: false
     },
@@ -28,34 +29,35 @@
   };
   let max_known_page = 0;
 
-  const select = (provider: TWalletProviderConstructor | null) => {
-    current_provider = provider;
+  const select = (asset: TWalletAssetConstructor | null) => {
+    current_asset = asset;
   };
 
   const confirm = () => {
-    onConfirm(current_provider);
+    onConfirm(current_asset);
   };
 
   const search = async () => {
-    const { errorMessage, data } = await baseGetQuery<AwaitedArrayData<TWalletCategoryConstructor>>(
-      {
-        uri: `/api/wallet/providers?category=${category!.id}&size=5&page=${current_page}${
-          keyword ? `&keyword=${keyword}` : ''
-        }`,
-        server: 'sveltekit'
-      }
-    );
+    if (category!.id !== 'cash' && category!.id !== 'crypto') {
+      return;
+    }
+    const { errorMessage, data } = await baseGetQuery<AwaitedArrayData<TWalletAssetConstructor>>({
+      uri: `/api/assets/${category!.id}?&size=5&page=${current_page}${
+        keyword ? `&keyword=${keyword}` : ''
+      }`,
+      server: 'sveltekit'
+    });
     if (errorMessage || !data) {
       toastStore.trigger({
         message: errorMessage
           ? errorMessage
-          : 'An uncaught error occurred while fetching asset providers',
+          : 'An uncaught error occurred while fetching asset data',
         background: 'variant-filled-error'
       });
       return;
     }
     display_data = data;
-    providers = data.data;
+    assets = data.data;
     if (current_page > max_known_page && data.data.length) {
       max_known_page = current_page;
     }
@@ -74,10 +76,10 @@
 
 <FormShell
   instruction={t({
-    en: 'Tell us about the organization or the instrument in charge.',
-    fr: "Parlez-nous de l'organisation ou de l'instrument en charge.",
-    de: 'Erzählen Sie uns von der Organisation oder dem zuständigen Instrument.',
-    ko: '위탁 기관 또는 지갑 종류에 대해 말해주세요.'
+    en: "Tell us about the asset you're holding in this wallet (account).",
+    de: 'Erzählen Sie uns von dem Vermögenswert, den Sie in dieser Brieftasche halten (Konto).',
+    fr: "Parlez-nous de l'actif que vous détenez dans ce portefeuille (compte).",
+    ko: '어떤 자산이 보관되는지 말해주세요.'
   })}
 >
   <!-- CURRENT SELECTIONS -->
@@ -86,29 +88,33 @@
       <SelectionItem
         label={category.display_name}
         icon={category.icon}
-        image={category.image}
         iconClass={'text-surface-800'}
+        image={category.image}
       />
     {/if}
-    {#if current_provider}
+    {#if provider}
+      <Icon icon="fa6-solid:plus" class="w-8 h-8" />
+      <SelectionItem label={provider.display_name} image={provider.image} icon={provider.icon} />
+    {/if}
+    {#if current_asset}
       <Icon icon="fa6-solid:plus" class="w-8 h-8" />
       <SelectionItem
-        label={current_provider.display_name}
-        icon={current_provider.icon}
-        image={current_provider.image}
+        label={current_asset.display_name}
+        image={current_asset.image}
+        icon={current_asset.icon}
       />
     {/if}
   </div>
   <!-- KEYWORD FORM -->
   <form class="flex flex-col variant-soft-surface p-2 rounded-md" on:submit|preventDefault={search}>
-    <label class="label" for="input-keyword">{i('asset.provider.label')}</label>
+    <label class="label" for="input-keyword">{i('asset.asset.label')}</label>
     <div class="w-full inline-flex items-center gap-2">
       <input
         id="input-keyword"
         bind:value={keyword}
         class="input rounded-md"
         type="text"
-        placeholder={i(`asset.category.placeholders.${category?.id}`)}
+        placeholder={i(`asset.asset.placeholders.${category?.id}`)}
       />
       <button class="btn-icon hover:variant-ghost-surface">
         <Icon icon="mdi:magnify" class="w-8 h-8" />
@@ -118,23 +124,23 @@
   <!-- LIST OF ITEMS -->
   <div
     class={clsx('flex flex-col variant-soft-surface rounded-md', {
-      ['justify-center items-center']: !providers
+      ['justify-center items-center']: !assets
     })}
   >
-    {#if providers}
-      {#each providers as provider, _i}
+    {#if assets}
+      {#each assets as asset, _i}
         <ListItem
-          selected={current_provider?.id === provider.id}
-          label={provider.display_name}
-          image={provider.image}
-          icon={provider.icon}
           onClick={() => {
-            if (provider.id === current_provider?.id) {
+            if (asset.id === current_asset?.id) {
               select(null);
             } else {
-              select(provider);
+              select(asset);
             }
           }}
+          image={asset.image}
+          icon={asset.icon}
+          label={asset.display_name}
+          selected={current_asset?.id === asset.id}
         />
       {/each}
     {:else}
@@ -210,9 +216,9 @@
   <!-- BUTTONS -->
   <button
     class={clsx('btn self-center variant-filled-surface duration-100', 'min-w-[100px]', {
-      ['animate-wiggle hover:animate-none']: Boolean(current_provider)
+      ['animate-wiggle hover:animate-none']: Boolean(current_asset)
     })}
-    disabled={!current_provider}
+    disabled={!current_asset}
     on:click={confirm}>{i('misc.confirm')}</button
   >
   <button
