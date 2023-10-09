@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { countNonNullValues, sleep } from '$lib/ts-utils';
+  import { getToastStore } from '@skeletonlabs/skeleton';
+  import { countNonNullValues } from '$lib/ts-utils';
   import { Asset, Category, Provider, WalletMetadata } from '$components/wallet-creator';
+  import { basePostQuery } from '$lib/axios';
+  import { i } from '@inlang/sdk-js';
+  import { navigateTo } from '$lib/routes';
 
   let confirmed_category: TWalletCategoryConstructor | null = null;
   let confirmed_provider: TWalletProviderConstructor | null = null;
   let confirmed_asset: TWalletAssetConstructor | null = null;
   let creation_processing: boolean = false;
+
+  const toastStore = getToastStore();
 
   $: step = countNonNullValues({
     confirmed_category,
@@ -13,12 +19,53 @@
     confirmed_asset
   });
 
-  const create_wallet = async () => {
+  const create_wallet = async ({
+    wallet_name,
+    wallet_balance
+  }: {
+    wallet_name: string;
+    wallet_balance: number;
+  }) => {
     creation_processing = true;
-    console.log('Unimplemented: create_wallet');
-    await sleep(1000);
-    /** TODO: Implement Wallet Creation Submit */
+    if (!confirmed_provider || !confirmed_category || !confirmed_asset) {
+      const field = !confirmed_provider
+        ? 'provider'
+        : !confirmed_category
+        ? 'category'
+        : !confirmed_asset
+        ? 'asset'
+        : 'unknown';
+      toastStore.trigger({
+        message: `${i('error.required_field')}: ${field}`,
+        background: 'variant-filled-error'
+      });
+      creation_processing = false;
+      return;
+    }
+    const payload: Partial<SerializedWallet> = {
+      provider: confirmed_provider.id,
+      category: confirmed_category.id,
+      asset: confirmed_asset.id,
+      balance: wallet_balance,
+      name: wallet_name,
+      is_public: false
+    };
+    const uri = '/wallet/';
+    const { errorMessage, data } = await basePostQuery<{ id: string }>({
+      uri,
+      payload
+    });
     creation_processing = false;
+    if (errorMessage) {
+      toastStore.trigger({
+        message: errorMessage,
+        background: 'variant-filled-error'
+      });
+      return;
+    }
+    if (data?.id) {
+      navigateTo(`wallet/${data.id}`);
+    }
   };
 </script>
 

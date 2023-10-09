@@ -36,7 +36,7 @@
 <div class="container h-full m-auto flex justify-center items-center">
   {#if loaded}
     {#if wallet}
-      <code class="code">TODO : view wallet (wallet_id)</code>
+      <code class="code">TODO : view wallet - wallet_id:({wallet_id})</code>
     {:else}
       <code class="code">Loaded, but wallet does not exist</code>
     {/if}

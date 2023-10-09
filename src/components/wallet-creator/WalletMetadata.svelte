@@ -9,7 +9,13 @@
   export let provider: TWalletProviderConstructor | null;
   export let asset: TWalletAssetConstructor | null;
   export let processing: boolean;
-  export let onConfirm: () => void;
+  export let onConfirm: ({
+    wallet_name,
+    wallet_balance
+  }: {
+    wallet_name: string;
+    wallet_balance: number;
+  }) => void;
   export let onBack: () => void;
 
   const toastStore = getToastStore();
@@ -26,7 +32,10 @@
       });
       return;
     }
-    onConfirm();
+    onConfirm({
+      wallet_name,
+      wallet_balance
+    });
   };
 </script>
 

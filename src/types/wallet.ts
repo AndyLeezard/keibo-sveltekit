@@ -40,7 +40,7 @@ declare global {
   type WalletConstructor = WalletBase & {
     category: AssetCategory;
   };
-  type SerializedWallet = {
+  type SerializedWallet = WalletConstructor & {
     /** stringified UUID */
     id: string;
     is_public: boolean;
