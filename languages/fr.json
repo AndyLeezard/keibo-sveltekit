@@ -39,7 +39,21 @@
     "no_active_account": "Aucun compte actif trouvé avec les informations d'identification fournies"
   },
   "asset": {
-    "category": {
+    "tag": "Actif",
+    "form": {
+      "label": "Nom de l'actif (devise)",
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, etc...",
+        "crypto": "BTC, ETH, BNB, USDT etc...",
+        "equity": "LVMH, ORANGE, AXA, etc...",
+        "fund": "Amundi CAC 40 ETF, BNP Paribas Aqua, etc...",
+        "other": "Matières premières, produits dérivés, etc..."
+      }
+    }
+  },
+  "category": {
+    "tag": "Catégorie d'actif",
+    "form": {
       "placeholders": {
         "cash": "BNP Paribas, Paypal, etc...",
         "crypto": "Binance, Ledger, Coinbase, etc...",
@@ -47,28 +61,40 @@
         "fund": "Boursorama, Linxea, etc...",
         "other": "Garde personnelle, Stockage privé, etc..."
       }
-    },
-    "asset": {
-      "placeholders": {
-        "cash": "USD, EUR, JPY, KRW, etc...",
-        "crypto": "BTC, ETH, BNB, USDT etc...",
-        "equity": "LVMH, ORANGE, AXA, etc...",
-        "fund": "Amundi CAC 40 ETF, BNP Paribas Aqua, etc...",
-        "other": "Matières premières, produits dérivés, etc..."
-      },
-      "label": "Nom de l'actif (devise)"
-    },
-    "provider": {
+    }
+  },
+  "provider": {
+    "tag": "Institution financière",
+    "form": {
       "label": "Nom de l'institution financière"
     }
   },
   "wallet": {
-    "name": {
-      "label": "Nom du portefeuille *",
+    "tag": "Compte",
+    "form": {
+      "label": "Nom du compte *",
       "placeholder": "Ex: Compte d'épargne secondaire"
     },
     "balance": {
-      "label": "Montant des réserves *"
+      "form": {
+        "label": "Montant des réserves *"
+      }
+    },
+    "role": {
+      "tag": "Rôle",
+      "viewer": "Viewer",
+      "editor": "Éditeur",
+      "co_owner": "Co-propriétaire",
+      "owner": "Propriétaire"
+    },
+    "name": {
+      "tag": "Nom du Compte"
+    },
+    "valuation": {
+      "tag": "Valeur du Compte"
+    },
+    "public": {
+      "tag": "Publique"
     }
   }
 }

@@ -39,7 +39,21 @@
     "no_active_account": "Kein aktives Konto bei den angegebenen Anmeldeinformationen gefunden"
   },
   "asset": {
-    "category": {
+    "tag": "Vermögenswert",
+    "form": {
+      "label": "Name des Vermögenswerts (Währung)",
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, usw...",
+        "crypto": "BTC, ETH, BNB, USDT usw...",
+        "equity": "AAPL, AMZN, NVDA, usw...",
+        "fund": "SPDR S&P 500 ETF, VTI,  usw...",
+        "other": "Rohstoffe, Edelmetall, Derivate usw..."
+      }
+    }
+  },
+  "category": {
+    "tag": "Vermögenskategorie",
+    "form": {
       "placeholders": {
         "cash": "JPMorgan Chase, Paypal, Coinbase, usw...",
         "crypto": "Coinbase, Binance, Ledger, usw...",
@@ -47,28 +61,40 @@
         "fund": "Vanguard, Fidelity, usw...",
         "other": "Selbstgewahrsam, private Lagerung, usw..."
       }
-    },
-    "asset": {
-      "placeholders": {
-        "cash": "USD, EUR, JPY, KRW, usw...",
-        "crypto": "BTC, ETH, BNB, USDT usw...",
-        "equity": "AAPL, AMZN, NVDA, usw...",
-        "fund": "SPDR S&P 500 ETF, VTI,  usw...",
-        "other": "Rohstoffe, Edelmetall, Derivate usw..."
-      },
-      "label": "Name des Vermögenswerts (Währung)"
-    },
-    "provider": {
+    }
+  },
+  "provider": {
+    "tag": "Finanzielle Institution",
+    "form": {
       "label": "Name des Finanzinstituts"
     }
   },
   "wallet": {
-    "name": {
-      "label": "Name der Brieftasche *",
+    "tag": "Konto",
+    "form": {
+      "label": "Kontoname *",
       "placeholder": "Beispiel: Sekundärsparkonto"
     },
     "balance": {
-      "label": "Kontostand *"
+      "form": {
+        "label": "Kontostand *"
+      }
+    },
+    "role": {
+      "tag": "Rolle"
+    },
+    "name": {
+      "tag": "Kontoname",
+      "viewer": "Zuschauerin",
+      "editor": "Editorin",
+      "co_owner": "Mitinhaber",
+      "owner": "Eigentümer"
+    },
+    "valuation": {
+      "tag": "Bewertung"
+    },
+    "public": {
+      "tag": "Öffentlich"
     }
   }
 }

@@ -14,7 +14,7 @@
     "confirm": "확인",
     "back": "뒤로"
   },
-  "error":{
+  "error": {
     "required_field": "필수 항목을 입력해주세요"
   },
   "theme": {
@@ -38,7 +38,21 @@
     "no_active_account": "해당 정보와 일치하는 활성 유저가 없습니다"
   },
   "asset": {
-    "category": {
+    "tag": "자산",
+    "form": {
+      "label": "자산 및 화폐명",
+      "placeholders": {
+        "cash": "미국 달러, 유로, 원화, 엔화, 등",
+        "crypto": "비트코인, 이더리움, 등",
+        "equity": "삼성전자, SK 하이닉스, 카카오 등",
+        "fund": "KODEX 200 ETF, TIGER 200 ETF 등",
+        "other": "원자재, 파생상품, 옵션 등"
+      }
+    }
+  },
+  "category": {
+    "tag": "자산 분류",
+    "form": {
       "placeholders": {
         "cash": "국민은행, 카카오뱅크 등",
         "crypto": "업비트, 레저, 바이낸스 등",
@@ -46,28 +60,40 @@
         "fund": "삼성증권, 하나은행, KB증권 등",
         "other": "자가 보관, 셀프 커스터디 등"
       }
-    },
-    "asset": {
-      "placeholders": {
-        "cash": "미국 달러, 유로, 원화, 엔화, 등",
-        "crypto": "비트코인, 이더리움, 등",
-        "equity": "삼성전자, SK 하이닉스, 카카오 등",
-        "fund": "KODEX 200 ETF, TIGER 200 ETF 등",
-        "other": "원자재, 파생상품, 옵션 등"
-      },
-      "label": "자산 및 화폐명"
-    },
-    "provider": {
+    }
+  },
+  "provider": {
+    "tag": "금융기관",
+    "form": {
       "label": "금융기관명"
     }
   },
   "wallet": {
-    "name": {
-      "label": "지갑 이름 *",
+    "tag": "계좌",
+    "form": {
+      "label": "계좌명 *",
       "placeholder": "Ex: 저축 계좌"
     },
     "balance": {
-      "label": "보유량 *"
+      "form": {
+        "label": "보유량 *"
+      }
+    },
+    "role": {
+      "tag": "권한",
+      "viewer": "뷰어",
+      "editor": "편집자",
+      "co_owner": "공동소유자",
+      "owner": "소유자"
+    },
+    "name": {
+      "tag": "계좌명"
+    },
+    "valuation": {
+      "tag": "계좌 가치"
+    },
+    "public": {
+      "tag": "공개용"
     }
   }
 }

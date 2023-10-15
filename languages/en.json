@@ -39,7 +39,21 @@
     "no_active_account": "No active account found with the given credentials"
   },
   "asset": {
-    "category": {
+    "tag": "Asset",
+    "form": {
+      "label": "Name of the asset (currency)",
+      "placeholders": {
+        "cash": "USD, EUR, JPY, KRW, etc...",
+        "crypto": "BTC, ETH, BNB, USDT etc...",
+        "equity": "AAPL, AMZN, NVDA, etc...",
+        "fund": "SPDR S&P 500 ETF, VTI,  etc...",
+        "other": "Commodities, Precious metal, Derivatives, etc..."
+      }
+    }
+  },
+  "category": {
+    "tag": "Asset Category",
+    "form": {
       "placeholders": {
         "cash": "JPMorgan Chase, Paypal, Coinbase, etc...",
         "crypto": "Coinbase, Binance US, Ledger, etc...",
@@ -47,28 +61,40 @@
         "fund": "Vanguard, Fidelity, etc...",
         "other": "Self custody, Private storage, etc..."
       }
-    },
-    "asset": {
-      "placeholders": {
-        "cash": "USD, EUR, JPY, KRW, etc...",
-        "crypto": "BTC, ETH, BNB, USDT etc...",
-        "equity": "AAPL, AMZN, NVDA, etc...",
-        "fund": "SPDR S&P 500 ETF, VTI,  etc...",
-        "other": "Commodities, Precious metal, Derivatives, etc..."
-      },
-      "label": "Name of the asset (currency)"
-    },
-    "provider": {
+    }
+  },
+  "provider": {
+    "tag": "Financial institution",
+    "form": {
       "label": "Name of the financial institution"
     }
   },
   "wallet": {
-    "name": {
-      "label": "Name of the wallet *",
+    "tag": "Account",
+    "form": {
+      "label": "Account name *",
       "placeholder": "Ex: Secondary savings account"
     },
     "balance": {
-      "label": "Balance *"
+      "form": {
+        "label": "Balance *"
+      }
+    },
+    "role": {
+      "tag": "Role",
+      "viewer": "Viewer",
+      "editor": "Editor",
+      "co_owner": "Co-owner",
+      "owner": "Owner"
+    },
+    "name": {
+      "tag": "Account Name"
+    },
+    "valuation": {
+      "tag": "Valuation"
+    },
+    "public": {
+      "tag": "Public"
     }
   }
 }
