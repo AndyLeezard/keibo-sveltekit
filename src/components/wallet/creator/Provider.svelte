@@ -8,7 +8,7 @@
   import Icon from '@iconify/svelte';
   import { onMount } from 'svelte';
   import { generateNextArray, generatePreviousArray } from './utils';
-  import { FormShell, ListItem, SelectionItem } from './widgets';
+  import { FormShell, ListItem, SelectionItem } from '../widgets';
   export let category: TWalletCategoryConstructor | null;
   export let onConfirm: (walletProvider: TWalletProviderConstructor | null) => void;
   export let onBack: () => void;
@@ -39,7 +39,7 @@
   const search = async () => {
     const { errorMessage, data } = await baseGetQuery<AwaitedArrayData<TWalletCategoryConstructor>>(
       {
-        uri: `/api/wallet/providers?category=${category!.id}&size=5&page=${current_page}${
+        uri: `wallet/providers?category=${category!.id}&size=5&page=${current_page}${
           keyword ? `&keyword=${keyword}` : ''
         }`,
         server: 'sveltekit'
@@ -101,14 +101,14 @@
   </div>
   <!-- KEYWORD FORM -->
   <form class="flex flex-col variant-soft-surface p-2 rounded-md" on:submit|preventDefault={search}>
-    <label class="label" for="input-keyword">{i('asset.provider.label')}</label>
+    <label class="label" for="input-keyword">{i('provider.form.label')}</label>
     <div class="w-full inline-flex items-center gap-2">
       <input
         id="input-keyword"
         bind:value={keyword}
         class="input rounded-md"
         type="text"
-        placeholder={i(`asset.category.placeholders.${category?.id}`)}
+        placeholder={i(`category.form.placeholders.${category?.id}`)}
       />
       <button class="btn-icon hover:variant-ghost-surface">
         <Icon icon="mdi:magnify" class="w-8 h-8" />

@@ -1,6 +1,6 @@
 import type { PDictionary } from '$lib/intl';
 
-type TServerSideWalletAssetConstructor = {
+type TServerSideWalletCashAssetConstructor = {
   id: string;
   symbol: string;
   display_name: PDictionary;
@@ -11,7 +11,7 @@ type TServerSideWalletAssetConstructor = {
 
 export const common_class: string = 'text-green-700';
 
-export const currency_list: Array<TServerSideWalletAssetConstructor> = [
+export const currency_list: Array<TServerSideWalletCashAssetConstructor> = [
   {
     id: 'usd',
     symbol: 'usd',

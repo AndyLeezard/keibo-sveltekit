@@ -1,13 +1,13 @@
 import type { PDictionary } from '$lib/intl';
 
-type TServerSideWalletAssetConstructor = {
+type TServerSideWalletCryptoAssetConstructor = {
   id: string;
   symbol: string;
   display_name: PDictionary;
   image: string;
 };
 
-export const crypto_list: Array<TServerSideWalletAssetConstructor> = [
+export const crypto_list: Array<TServerSideWalletCryptoAssetConstructor> = [
   {
     id: 'bitcoin',
     symbol: 'btc',

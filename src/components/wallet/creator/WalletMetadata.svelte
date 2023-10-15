@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ProgressRadial, getToastStore } from '@skeletonlabs/skeleton';
-  import { FormShell, SelectionItem } from './widgets';
+  import { FormShell, SelectionItem } from '../widgets';
   import { t } from '$lib/intl';
   import Icon from '@iconify/svelte';
   import { i } from '@inlang/sdk-js';
@@ -27,7 +27,7 @@
     if (processing) return;
     if (!wallet_name.trim()) {
       toastStore.trigger({
-        message: `${i('error.required_field')}: ${i('wallet.name.label')}`,
+        message: `${i('error.required_field')}: ${i('wallet.form.label')}`,
         background: 'variant-filled-error'
       });
       return;
@@ -71,17 +71,17 @@
     class="flex flex-col variant-soft-surface pl-2 pr-2 pt-3 pb-3 rounded-md"
     on:submit|preventDefault={onSubmit}
   >
-    <label class="label" for="input-wallet-name">{i('wallet.name.label')}</label>
+    <label class="label" for="input-wallet-name">{i('wallet.form.label')}</label>
     <div class="w-full inline-flex items-center gap-2 mb-4">
       <input
         id="input-wallet-name"
         bind:value={wallet_name}
         class="input rounded-md"
         type="text"
-        placeholder={i('wallet.name.placeholder')}
+        placeholder={i('wallet.form.placeholder')}
       />
     </div>
-    <label class="label" for="input-wallet-balance">{i('wallet.balance.label')}</label>
+    <label class="label" for="input-wallet-balance">{i('wallet.balance.form.label')}</label>
     <div class="w-full inline-flex items-center gap-2 mb-2">
       <input
         id="input-wallet-balance"

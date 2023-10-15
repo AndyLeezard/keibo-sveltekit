@@ -1,10 +1,10 @@
 <script lang="ts">
   import { getToastStore } from '@skeletonlabs/skeleton';
   import { countNonNullValues } from '$lib/ts-utils';
-  import { Asset, Category, Provider, WalletMetadata } from '$components/wallet-creator';
   import { basePostQuery } from '$lib/axios';
   import { i } from '@inlang/sdk-js';
   import { navigateTo } from '$lib/routes';
+  import { Asset, Category, Provider, WalletMetadata } from '$components/wallet/creator';
 
   let confirmed_category: TWalletCategoryConstructor | null = null;
   let confirmed_provider: TWalletProviderConstructor | null = null;

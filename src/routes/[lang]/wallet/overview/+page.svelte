@@ -2,6 +2,10 @@
   import { baseGetQuery } from '$lib/axios';
   import { onMount } from 'svelte';
   import { getToastStore } from '@skeletonlabs/skeleton';
+  import { Wallet, WalletShell } from '$components/wallet/overview';
+  import Icon from '@iconify/svelte';
+  import { i } from '@inlang/sdk-js';
+  import clsx from 'clsx';
   let loaded = false;
   let wallets: Array<SerializedWallet> | null = null;
   const toastStore = getToastStore();
@@ -38,7 +42,51 @@
   </div>
   {#if loaded}
     {#if wallets}
-      <code class="code m-auto">{JSON.stringify(wallets)}</code>
+      <div
+        class={clsx(
+          'm-2 flex overflow-auto',
+          'variant-soft-surface',
+          'flex-wrap gap-2',
+          'sm:flex-col sm:space-y-1'
+        )}
+      >
+        <WalletShell wrapperClass="variant-filled-surface">
+          <svelte:fragment slot="provider-image">
+            <Icon class="w-full h-full" icon="fa:institution" />
+          </svelte:fragment>
+          <svelte:fragment slot="provider">
+            <span>{i('provider.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="asset-image">
+            <Icon
+              class="w-full h-full"
+              icon="streamline:shopping-jewelry-diamond-1-diamond-money-payment-finance-wealth"
+            />
+          </svelte:fragment>
+          <svelte:fragment slot="asset">
+            <span>{i('asset.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="asset-category">
+            <span>{i('category.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="role">
+            <span>{i('wallet.role.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="name">
+            <span>{i('wallet.name.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="valuation">
+            <span>{i('wallet.valuation.tag')}</span>
+          </svelte:fragment>
+          <svelte:fragment slot="public">
+            <span>{i('wallet.public.tag')}</span>
+          </svelte:fragment>
+        </WalletShell>
+        {#each wallets as wallet}
+          <!-- <pre>{JSON.stringify(wallet, null, 4)}</pre> -->
+          <Wallet {wallet} />
+        {/each}
+      </div>
     {:else}
       <code class="code m-auto">TODO : Overview</code>
     {/if}

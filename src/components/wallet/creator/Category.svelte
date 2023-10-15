@@ -6,7 +6,7 @@
   import { i } from '@inlang/sdk-js';
   import { t } from '$lib/intl';
   import Icon from '@iconify/svelte';
-  import { FormShell } from './widgets';
+  import { FormShell } from '../widgets';
   export let onConfirm: (walletCategory: TWalletCategoryConstructor | null) => void;
 
   const toastStore = getToastStore();
@@ -23,7 +23,7 @@
 
   onMount(async () => {
     const { errorMessage, data } = await baseGetQuery<Array<TWalletCategoryConstructor>>({
-      uri: '/api/wallet/categories',
+      uri: 'wallet/categories',
       server: 'sveltekit'
     });
     if (errorMessage || !data) {

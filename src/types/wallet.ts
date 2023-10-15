@@ -52,10 +52,10 @@ declare global {
      *
      * 1: viewer
      * 2: editor
-     * 3: manager (will be counted as co-property)
+     * 3: co-owner (wallet will be counted as co-property by default)
      * 4: owner
      */
-    role: number;
+    role: 1 | 2 | 3 | 4;
 
     val_usd?: number;
   };
@@ -70,6 +70,14 @@ declare global {
     id: string;
     symbol: string;
     quantity: number;
+  };
+  /** obtained by id, server sends the intl processed data */
+  type TWalletAssetMetadata = {
+    id: string;
+    symbol: string;
+    display_name: string;
+    icon?: TIcon;
+    image?: string;
   };
 }
 export type module = unknown;

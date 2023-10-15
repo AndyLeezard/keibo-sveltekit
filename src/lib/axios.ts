@@ -37,7 +37,7 @@ type AxiosRequestParamsBase = {
 export const baseGetQuery = async <T>(args: AxiosRequestParamsBase) => {
   const { uri, config, server = 'django' } = args;
   const pure_uri = `${uri.startsWith('/') ? uri : `/${uri}`}`;
-  const getUri = server === 'django' ? `${BASE_URL}${pure_uri}` : `/${language}${pure_uri}`;
+  const getUri = server === 'django' ? `${BASE_URL}${pure_uri}` : `/${language}/api${pure_uri}`;
   if (import.meta.env.DEV) {
     console.log(getUri);
   }
