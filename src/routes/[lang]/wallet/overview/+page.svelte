@@ -6,6 +6,7 @@
   import Icon from '@iconify/svelte';
   import { i } from '@inlang/sdk-js';
   import clsx from 'clsx';
+  import { navigateTo } from '$lib/routes';
   let loaded = false;
   let wallets: Array<SerializedWallet> | null = null;
   const toastStore = getToastStore();
@@ -40,17 +41,16 @@
   <div class="inline-flex p-2">
     <h1 class="text-3xl font-bold">Overview</h1>
   </div>
-  {#if loaded}
-    {#if wallets}
+  {#if loaded && wallets}
+    <div class={clsx('m-2 flex flex-col overflow-auto', 'variant-soft-surface')}>
       <div
         class={clsx(
-          'm-2 flex overflow-auto',
-          'variant-soft-surface',
-          'flex-wrap gap-2',
-          'sm:flex-col sm:space-y-1'
+          'flex space-x-2',
+          'divide-x divide-surface-800 dark:divide-surface-50',
+          'variant-filled-surface'
         )}
       >
-        <WalletShell wrapperClass="variant-filled-surface">
+        <WalletShell>
           <svelte:fragment slot="provider-image">
             <Icon class="w-full h-full" icon="fa:institution" />
           </svelte:fragment>
@@ -82,14 +82,24 @@
             <span>{i('wallet.public.tag')}</span>
           </svelte:fragment>
         </WalletShell>
-        {#each wallets as wallet}
-          <!-- <pre>{JSON.stringify(wallet, null, 4)}</pre> -->
-          <Wallet {wallet} />
-        {/each}
       </div>
-    {:else}
-      <code class="code m-auto">TODO : Overview</code>
-    {/if}
+      {#each wallets as wallet}
+        <!-- <pre>{JSON.stringify(wallet, null, 4)}</pre> -->
+        <button
+          type="button"
+          class={clsx(
+            'flex space-x-2',
+            'divide-x divide-surface-800 dark:divide-surface-50',
+            'hover:brightness-125'
+          )}
+          on:click={() => {
+            navigateTo(`wallet/${wallet.id}`);
+          }}
+        >
+          <Wallet {wallet} />
+        </button>
+      {/each}
+    </div>
   {:else}
     <section class="card w-full">
       <div class="p-4 space-y-4">

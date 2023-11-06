@@ -7,6 +7,9 @@
   import { t } from '$lib/intl';
   import { parseWalletRole } from '$lib/parser';
 
+  export let imageClass: Optional<string> = undefined;
+  export let columnClass: Optional<string> = undefined;
+
   export let wallet: SerializedWallet;
   let provider: TWalletProviderConstructor | null = null;
   let asset: TWalletAssetMetadata | null = null;
@@ -24,25 +27,28 @@
     if (provider_metadata) {
       provider = provider_metadata;
     }
-    if (wallet.category === 'cash' || wallet.category === 'crypto') {
-      const { errorMessage: assetErrorMessage, data: asset_metadata } =
-        await baseGetQuery<TWalletAssetMetadata>({
-          uri: `assets/${wallet.category}/${wallet.asset}`,
-          server: 'sveltekit'
-        });
-      if (assetErrorMessage) {
-        console.log(`%c${assetErrorMessage}`, '#ff6464');
-        return;
-      }
-      console.log(asset_metadata);
-      if (asset_metadata) {
-        asset = asset_metadata;
+    switch (wallet.category) {
+      case 'cash':
+      case 'crypto': {
+        const { errorMessage: assetErrorMessage, data: asset_metadata } =
+          await baseGetQuery<TWalletAssetMetadata>({
+            uri: `assets/${wallet.category}/${wallet.asset}`,
+            server: 'sveltekit'
+          });
+        if (assetErrorMessage) {
+          console.log(`%c${assetErrorMessage}`, '#ff6464');
+          return;
+        }
+        console.log(asset_metadata);
+        if (asset_metadata) {
+          asset = asset_metadata;
+        }
       }
     }
   });
 </script>
 
-<WalletShell>
+<WalletShell {imageClass} {columnClass}>
   <svelte:fragment slot="provider-image">
     {#if provider && provider.icon}
       <Icon class={clsx('w-full h-full', provider.icon.class)} icon={provider.icon.source} />
