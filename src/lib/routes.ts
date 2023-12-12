@@ -1,12 +1,14 @@
 import { goto } from '$app/navigation';
 import { language } from '@inlang/sdk-js';
 
+export const parseAnchorUrl = (path: string) => {
+  return `${
+    !path ? `/${language}` : path.startsWith('/') ? `/${language}${path}` : `/${language}/${path}`
+  }`;
+};
+
 export const navigateTo = (path: string) => {
-  goto(
-    `${
-      !path ? `/${language}` : path.startsWith('/') ? `/${language}${path}` : `/${language}/${path}`
-    }`
-  );
+  goto(parseAnchorUrl(path));
 };
 
 /**
