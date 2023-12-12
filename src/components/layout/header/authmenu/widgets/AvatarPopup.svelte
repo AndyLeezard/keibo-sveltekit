@@ -1,6 +1,6 @@
 <script lang="ts">
   import { logout } from '$lib/derived/auth';
-  import { fetchGetQuery } from '$lib/node-fetch';
+  import { fetchGetQuery } from '$lib/fetch-query';
   import { navigateTo, routeIsSelected } from '$lib/routes';
   import { user } from '$stores/auth';
   import { inversedNameOrder, t } from '$lib/intl';

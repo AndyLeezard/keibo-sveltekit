@@ -7,7 +7,7 @@
   import { getClientUser, handleOAuthRedirection } from '$lib/derived/auth';
   import { getToastStore } from '@skeletonlabs/skeleton';
   import { navigateTo } from '$lib/routes';
-  import { fetchPostQuery } from '$lib/node-fetch.js';
+  import { fetchPostQuery } from '$lib/fetch-query.js';
   export let data;
   const toastStore = getToastStore();
   const providerMap = new Map<

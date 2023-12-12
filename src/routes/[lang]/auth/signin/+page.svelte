@@ -8,7 +8,7 @@
   import { user } from '$stores/auth';
   import { oAuthLogin, jwtCreate, getClientUser, checkUser } from '$lib/derived/auth';
   import { navigateTo } from '$lib/routes';
-  import { fetchPostQuery } from '$lib/node-fetch.js';
+  import { fetchPostQuery } from '$lib/fetch-query.js';
   export let data;
   const { from_register, from_activation, from_reset_pw_request, from_confirm_pw_request } = data;
   const toastStore = getToastStore();
