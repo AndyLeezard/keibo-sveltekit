@@ -8,6 +8,7 @@
   import { initializeStores, getToastStore, storePopup } from '@skeletonlabs/skeleton';
   import Lang from '$components/layout/header/Lang.svelte';
   import MDLang from '$components/modals/lang.svelte';
+  import RegisterHistory from '$components/modals/register_history.svelte';
   import '@fontsource/fira-sans';
   import '@fontsource/gamja-flower';
   import { Link } from '$components/util';
@@ -28,6 +29,9 @@
       // props: { background: 'bg-red-500' },
       // Provide a template literal for the default component slot
       // slot: '<p>Skeleton</p>'
+    },
+    registerHistory: {
+      ref: RegisterHistory
     }
   };
 

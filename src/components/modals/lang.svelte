@@ -1,6 +1,7 @@
 <script lang="ts">
   import { language, languages, switchLanguage } from '@inlang/sdk-js';
   import { getModalStore } from '@skeletonlabs/skeleton';
+  import Shell from './shell.svelte';
   import clsx from 'clsx';
 
   const modalStore = getModalStore();
@@ -13,7 +14,7 @@
   };
 </script>
 
-<div class="card p-4 flex flex-col gap-4 bg-tertiary-200 dark:bg-surface-700 max-w-[556px]">
+<Shell dismiss_button_text="Nah, I'm good.">
   <div class="flex flex-wrap gap-4 justify-center">
     {#each languages as lang}
       <button
@@ -35,14 +36,4 @@
       </button>
     {/each}
   </div>
-  <button
-    type="button"
-    class="btn variant-filled w-[164px] self-center"
-    on:click={() => {
-      modalStore.close();
-    }}
-  >
-    <kbd class="kbd variant-filled-surface">Esc</kbd>
-    <span class="font-semibold">Nah I'm good.</span>
-  </button>
-</div>
+</Shell>

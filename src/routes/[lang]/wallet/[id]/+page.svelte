@@ -1,10 +1,9 @@
 <script lang="ts">
   import { baseGetQuery } from '$lib/axios';
   import { onMount } from 'svelte';
-  import { getToastStore } from '@skeletonlabs/skeleton';
+  import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
   import clsx from 'clsx';
   import Icon from '@iconify/svelte';
-  import { i } from '@inlang/sdk-js';
   import { TransactionShell, Transaction } from '$components/wallet/transaction';
   export let data;
   const { wallet_id } = data;
@@ -13,6 +12,15 @@
   let transactions: SerializedTransaction[] | null = null;
 
   const toastStore = getToastStore();
+  const modalStore = getModalStore();
+
+  const openRegisterHistoryModal = () => {
+    modalStore.trigger({
+      type: 'component',
+      component: 'registerHistory'
+    });
+  };
+
   onMount(async () => {
     const { errorMessage, data } = await baseGetQuery<SerializedWallet>({
       uri: `wallet/${wallet_id}/`
@@ -95,6 +103,28 @@
       <span class="h-8 w-40 placeholder"></span>
     {/if}
   </div>
+  <div class="inline-flex gap-4 p-2">
+    <button
+      class={clsx(
+        'flex flex-col',
+        'p-1 rounded-lg',
+        'bg-primary-300-600-token hover:brightness-110'
+      )}
+      on:click={() => openRegisterHistoryModal()}
+    >
+      <span class="text-surface-600-100-token font-bold">Register a new expense</span>
+    </button>
+    <button
+      class={clsx(
+        'flex flex-col',
+        'p-1 rounded-lg',
+        'bg-tertiary-300-600-token hover:brightness-110'
+      )}
+      on:click={() => openRegisterHistoryModal()}
+    >
+      <span class="text-surface-600-100-token font-bold">Register a history</span>
+    </button>
+  </div>
   <div class={clsx('m-2 flex flex-col overflow-auto', 'variant-soft-surface')}>
     <div
       class={clsx(
@@ -107,11 +137,13 @@
         <svelte:fragment slot="category-image">
           <Icon icon="mdi:category-plus-outline" />
         </svelte:fragment>
+        <svelte:fragment slot="executed_at">Executed at</svelte:fragment>
+        <svelte:fragment slot="settled_at">Settled at</svelte:fragment>
         <svelte:fragment slot="category">Category</svelte:fragment>
+        <svelte:fragment slot="counterparty">Counterparty</svelte:fragment>
         <svelte:fragment slot="description">Description</svelte:fragment>
         <svelte:fragment slot="amount">Amount</svelte:fragment>
-        <svelte:fragment slot="fee">Transaction fee</svelte:fragment>
-        <svelte:fragment slot="date">Date</svelte:fragment>
+        <svelte:fragment slot="disposable">Disposable</svelte:fragment>
       </TransactionShell>
     </div>
     {#if wallet}

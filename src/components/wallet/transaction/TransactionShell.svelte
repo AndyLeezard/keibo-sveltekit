@@ -4,6 +4,12 @@
   export let columnClass: Optional<string> = undefined;
 </script>
 
+<div class={clsx('base-column-class', 'w-16', columnClass)}>
+  <slot name="executed_at" />
+</div>
+<div class={clsx('base-column-class', 'w-16', columnClass)}>
+  <slot name="settled_at" />
+</div>
 <div class={clsx('base-column-class', 'w-32', columnClass)}>
   <div class={clsx('inline-image-container', imageClass)}>
     <slot name="category-image" />
@@ -11,16 +17,16 @@
   <slot name="category" />
 </div>
 <div class={clsx('base-column-class', 'w-32', columnClass)}>
+  <slot name="counterparty" />
+</div>
+<div class={clsx('base-column-class', 'w-32', columnClass)}>
   <slot name="description" />
 </div>
-<div class={clsx('base-column-class', 'w-32', columnClass)}>
+<div class={clsx('base-column-class', 'w-16', columnClass)}>
   <slot name="amount" />
 </div>
-<div class={clsx('base-column-class', 'w-32', columnClass)}>
-  <slot name="fee" />
-</div>
 <div class={clsx('base-column-class', 'w-16', columnClass)}>
-  <slot name="date" />
+  <slot name="tags" />
 </div>
 
 <style lang="postcss">

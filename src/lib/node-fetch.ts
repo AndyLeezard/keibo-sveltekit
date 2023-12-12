@@ -29,7 +29,7 @@ export const baseFetchQuery = async <T, DT extends ResDataType = 'json'>(
 ): Promise<TGenericFetchResponse<T>> => {
   const { uri, init, noContentExpected = false, resDataType = 'json' } = args;
   let statusCode = 0;
-  let errorMessage = null;
+  let errorMessage: string | null = null;
   let data = null;
   try {
     const response = await fetch(uri, init);

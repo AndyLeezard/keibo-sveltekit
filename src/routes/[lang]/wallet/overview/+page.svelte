@@ -6,7 +6,7 @@
   import Icon from '@iconify/svelte';
   import { i } from '@inlang/sdk-js';
   import clsx from 'clsx';
-  import { navigateTo } from '$lib/routes';
+  import { parseAnchorUrl } from '$lib/routes';
   let loaded = false;
   let wallets: Array<SerializedWallet> | null = null;
   const toastStore = getToastStore();
@@ -42,7 +42,7 @@
     <h1 class="text-3xl font-bold">Overview</h1>
   </div>
   {#if loaded && wallets}
-    <div class={clsx('m-2 flex flex-col overflow-auto', 'variant-soft-surface')}>
+    <div class={clsx('m-2 flex flex-col h-full overflow-auto', 'variant-soft-surface')}>
       <div
         class={clsx(
           'flex space-x-2',
@@ -83,22 +83,35 @@
           </svelte:fragment>
         </WalletShell>
       </div>
-      {#each wallets as wallet}
-        <!-- <pre>{JSON.stringify(wallet, null, 4)}</pre> -->
-        <button
-          type="button"
-          class={clsx(
-            'flex space-x-2',
-            'divide-x divide-surface-800 dark:divide-surface-50',
-            'hover:brightness-125'
-          )}
-          on:click={() => {
-            navigateTo(`wallet/${wallet.id}`);
-          }}
-        >
-          <Wallet {wallet} />
-        </button>
-      {/each}
+      {#if wallets.length}
+        {#each wallets as wallet}
+          <!-- <pre>{JSON.stringify(wallet, null, 4)}</pre> -->
+          <a
+            class={clsx(
+              'flex space-x-2',
+              'divide-x divide-surface-800 dark:divide-surface-50',
+              'hover:brightness-125'
+            )}
+            href={parseAnchorUrl('/wallet/new')}
+          >
+            <Wallet {wallet} />
+          </a>
+        {/each}
+      {:else}
+        <div class={clsx('flex flex-col my-auto')}>
+          <span class={'text-center mb-2 text-2xl'}>No result</span>
+          <a
+            class={clsx(
+              'mx-auto text-xl text-shadow-thin shadow-black',
+              'bg-primary-300-600-token bg-opacity-50 hover:bg-primary-200-700-token',
+              'font-bold p-1 rounded-md'
+            )}
+            href={parseAnchorUrl('/wallet/new')}
+          >
+            Create a wallet
+          </a>
+        </div>
+      {/if}
     </div>
   {:else}
     <section class="card w-full">
