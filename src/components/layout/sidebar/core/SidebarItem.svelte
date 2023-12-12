@@ -5,7 +5,7 @@
   import { routeIsSelected } from '$lib/routes';
   export let href: string;
   export let className: string | undefined = undefined;
-  const isSelected = routeIsSelected($page.url.pathname, href);
+  $: isSelected = routeIsSelected($page.url.pathname, href);
 </script>
 
 <Link
