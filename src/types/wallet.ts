@@ -45,6 +45,9 @@ declare global {
     id: string;
     is_public: boolean;
 
+    input_asset: string;
+    input_amount: number;
+
     /**
      * int between 1 - 4 all included.
      *

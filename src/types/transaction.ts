@@ -4,25 +4,24 @@ declare global {
     id: string;
     /** tax, gas, etc... */
     category: string;
+    /** Wallet UID */
+    wallet: string;
 
-    confirmed_by_recipient: boolean;
-    confirmed_by_sender: boolean;
-    gross_amount: number;
-    net_amount: number;
-    transaction_fee: number;
     /** UNIX milliseconds timestamp of the moment the transaction was executed. */
-    date: number;
+    executed_at: number;
+    /** UNIX milliseconds timestamp of the moment the transaction was settled. */
+    settled_at: number;
+    amount: number;
+    /** to whom (or from whom) ? */
+    counterparty: string;
     /** description visible by both parties */
     description?: string;
-  } & (
-    | {
-        /** Wallet UID */
-        recipient?: string;
-      }
-    | {
-        /** Wallet UID */
-        sender?: string;
-      }
-  );
+    /**
+     * custom tags attached to the transaction
+     *
+     * example: 'disposable' - means the expense was avoidable - was charged within the disposable range of income
+     */
+    tags: string[];
+  };
 }
 export type module = unknown;
