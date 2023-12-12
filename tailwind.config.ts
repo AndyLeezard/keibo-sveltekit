@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import { skeleton } from '@skeletonlabs/tw-plugin';
+import plugin from 'tailwindcss/plugin';
 
 const config = {
   // Opt for dark mode to be handled via the class method
@@ -13,6 +14,16 @@ const config = {
   ],
   theme: {
     extend: {
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
+        thin: '0 1px 1px var(--tw-shadow-color)',
+        below: '0 2px 1px var(--tw-shadow-color)',
+        thick: '0 2px 2px var(--tw-shadow-color)',
+        around:
+          '0px 1px 1px var(--tw-shadow-color), 0px -1px 1px var(--tw-shadow-color), 1px 0px 1px var(--tw-shadow-color), -1px 0px 1px var(--tw-shadow-color)'
+      },
       keyframes: {
         wiggle: {
           '0': { transform: 'translate(0, 0) rotate(0deg)' },
@@ -40,6 +51,16 @@ const config = {
           }
         ]
       }
+    }),
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value
+          })
+        },
+        { values: theme('textShadow') }
+      );
     })
   ]
 } satisfies Config;
