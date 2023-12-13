@@ -31,10 +31,10 @@
       const field = !confirmed_provider
         ? 'provider'
         : !confirmed_category
-        ? 'category'
-        : !confirmed_asset
-        ? 'asset'
-        : 'unknown';
+          ? 'category'
+          : !confirmed_asset
+            ? 'asset'
+            : 'unknown';
       toastStore.trigger({
         message: `${i('error.required_field')}: ${field}`,
         background: 'variant-filled-error'

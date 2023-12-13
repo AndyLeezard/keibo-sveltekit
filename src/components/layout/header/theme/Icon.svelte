@@ -110,10 +110,14 @@
   }
 
   .moon {
-    transition: stroke-dasharray 0.5s ease-in, opacity 300ms ease-in;
+    transition:
+      stroke-dasharray 0.5s ease-in,
+      opacity 300ms ease-in;
   }
 
   .sun {
-    transition: stroke-dasharray 0.5s ease-in, opacity 300ms ease-in;
+    transition:
+      stroke-dasharray 0.5s ease-in,
+      opacity 300ms ease-in;
   }
 </style>

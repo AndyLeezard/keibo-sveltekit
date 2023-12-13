@@ -26,10 +26,10 @@
       !href
         ? `/${language}`
         : href.startsWith('http')
-        ? href
-        : href.startsWith('/')
-        ? `/${language}${href}`
-        : `/${language}/${href}`
+          ? href
+          : href.startsWith('/')
+            ? `/${language}${href}`
+            : `/${language}/${href}`
     }`}
     target={asNewTab ? '_blank' : '_self'}
     rel={asNewTab ? 'noopener noreferrer' : undefined}
