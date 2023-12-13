@@ -13,7 +13,7 @@ const config = {
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter({
       runtime: 'edge',
-      regions: ['eu-west-3']
+      regions: ['cdg1']
     }),
     alias: {
       // these are the aliases and paths to them
