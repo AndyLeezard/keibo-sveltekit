@@ -15,12 +15,12 @@ const config = {
   theme: {
     extend: {
       textShadow: {
-        sm: '0 1px 2px var(--tw-shadow-color)',
-        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
-        lg: '0 8px 16px var(--tw-shadow-color)',
-        thin: '0 1px 1px var(--tw-shadow-color)',
-        below: '0 2px 1px var(--tw-shadow-color)',
-        thick: '0 2px 2px var(--tw-shadow-color)',
+        sm: '0px 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0px 2px 4px var(--tw-shadow-color)',
+        lg: '0px 8px 16px var(--tw-shadow-color)',
+        thin: '0px 1px 1px var(--tw-shadow-color)',
+        below: '0px 2px 1px var(--tw-shadow-color)',
+        thick: '0px 2px 2px var(--tw-shadow-color)',
         around:
           '0px 1px 1px var(--tw-shadow-color), 0px -1px 1px var(--tw-shadow-color), 1px 0px 1px var(--tw-shadow-color), -1px 0px 1px var(--tw-shadow-color)'
       },
